@@ -3,6 +3,9 @@
 > Source: `proto/extracted/` (original descriptors pulled from
 > lunar.jar). Full message definitions live in the respective
 > `.proto` files.
+>
+> **Auto-generated per-service docs** (with complete message trees):
+> [docs/services/index.md](./services/index.md)
 
 ## Game WebSocket services (`wss://websocket.lunarclientprod.com/game`)
 

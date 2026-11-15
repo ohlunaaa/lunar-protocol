@@ -169,6 +169,11 @@ same WS.
 
 ## Next Steps
 
-- Derive per-service docs from `proto/extracted/`
-- Reverse the launcher's (Electron) `app.asar` for the launcher side
-- Capture the `gameipc` connection (launcher <-> game)
+- ~~Derive per-service docs from `proto/extracted/`~~ — done:
+  [docs/services/](./services/index.md) (auto-generated, 41 docs)
+- ~~Reverse the launcher's (Electron) `app.asar` for the launcher side~~ —
+  done: [LAUNCHER.md](./LAUNCHER.md) (launcher-v3 endpoint, module
+  architecture, Discord RPC, Overwolf integration)
+- ~~Capture the `gameipc` connection (launcher <-> game)~~ — done:
+  [GAMEIPC.md](./GAMEIPC.md) (ws://127.0.0.1:28190, envelopes, push
+  routing, security notes)

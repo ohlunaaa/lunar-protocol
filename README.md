@@ -11,7 +11,10 @@ This repository documents how a Minecraft session authenticates with Lunar's aut
 - [Auth Flow](./docs/AUTH_FLOW.md)
 - [Game WebSocket](./docs/GAME_WEBSOCKET.md)
 - [Service Catalog](./docs/SERVICE_CATALOG.md)
+- [Launcher Analysis (app.asar)](./docs/LAUNCHER.md)
+- [GameIPC (launcher <-> game)](./docs/GAMEIPC.md)
 - [Jar Analysis (full reverse engineering)](./docs/JAR_ANALYSIS.md)
+- [Per-Service Docs (auto-generated)](./docs/services/index.md) — 41 services
 - [Protobuf Schemas](./proto) — manual reconstruction
 - [Extracted original protos](./proto/extracted) — 176 files from lunar.jar
 
@@ -21,10 +24,13 @@ This repository documents how a Minecraft session authenticates with Lunar's aut
 - RSA/AES challenge-response authentication
 - Mojang `joinServer` integration
 - Game WebSocket handshake (original descriptors)
+- Launcher WebSocket (`/launcher-v3` endpoint) from app.asar
+- GameIPC local protocol (port 28190, WebSocket on localhost)
 - Protobuf message structure (176 .proto files)
 - All 38 WebSocket services with 150+ RPC methods
 - GameIPC (launcher <-> game) protocol
 - Apollo server-owner API
+- Discord Rich Presence integration
 - `SubscribeV2` player detection
 - UUID conversion between Minecraft strings and protobuf `Uuid`
 
@@ -44,6 +50,8 @@ Minecraft session
 |---|---|---|
 | Authenticator | `wss://authenticator.lunarclientprod.com/game` | Binary WebSocket + protobuf |
 | Game WebSocket | `wss://websocket.lunarclientprod.com/game` | Binary WebSocket + protobuf RPC |
+| Launcher WebSocket | `wss://websocket.lunarclientprod.com/launcher-v3` | Binary WebSocket + protobuf RPC |
+| GameIPC (local) | `ws://127.0.0.1:28190` (+1 scan) | WebSocket + protobuf RPC |
 | Mojang Session | `https://sessionserver.mojang.com/session/minecraft/join` | HTTPS + JSON |
 
 ## Tools
@@ -51,6 +59,10 @@ Minecraft session
 - [`tools/extract_protos.py`](./tools/extract_protos.py) — pulls the embedded
   FileDescriptor blobs out of the generated `*Proto.class` files of an
   unpacked `lunar.jar` and re-emits them as `.proto` text.
+- [`tools/extract_asar.py`](./tools/extract_asar.py) — extracts Electron
+  `app.asar` archives (Chromium pickle header format).
+- [`tools/gen_service_docs.py`](./tools/gen_service_docs.py) — generates the
+  per-service markdown docs in `docs/services/` from `proto/extracted/`.
 
 ## Status
 
