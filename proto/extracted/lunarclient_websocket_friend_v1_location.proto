@@ -1,0 +1,5 @@
+syntax = "proto3";
+package lunarclient.websocket.friend.v1;
+
+import "lunarclient/common/v1/inbound_location.proto";
+

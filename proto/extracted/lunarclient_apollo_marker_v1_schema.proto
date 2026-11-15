@@ -1,0 +1,113 @@
+syntax = "proto3";
+package lunarclient.apollo.marker.v1;
+
+import "google/protobuf/duration.proto";
+import "lunarclient/apollo/common/v1/color.proto";
+import "lunarclient/apollo/common/v1/icon.proto";
+import "lunarclient/apollo/common/v1/location.proto";
+import "lunarclient/apollo/common/v1/uuid.proto";
+
+enum MarkerDisplayCondition {
+  MARKER_DISPLAY_CONDITION_UNSPECIFIED = 0;
+  MARKER_DISPLAY_CONDITION_NEVER = 1;
+  MARKER_DISPLAY_CONDITION_HOVER = 2;
+  MARKER_DISPLAY_CONDITION_ALWAYS = 3;
+}
+enum MarkerOwnerDisplay {
+  MARKER_OWNER_DISPLAY_UNSPECIFIED = 0;
+  MARKER_OWNER_DISPLAY_HEAD = 1;
+  MARKER_OWNER_DISPLAY_NAME = 2;
+}
+enum MarkerDescriptionDisplay {
+  MARKER_DESCRIPTION_DISPLAY_UNSPECIFIED = 0;
+  MARKER_DESCRIPTION_DISPLAY_ICON = 1;
+  MARKER_DESCRIPTION_DISPLAY_TEXT = 2;
+}
+message DisplayMarkerMessage {
+    string id = 1;
+    lunarclient.apollo.common.v1.Location location = 2;
+    lunarclient.apollo.common.v1.Uuid owner_id = 3;
+    string owner_name = 4;
+    lunarclient.apollo.marker.v1.MarkerFlag flag = 5;
+    lunarclient.apollo.marker.v1.MarkerTarget target = 6;
+    google.protobuf.Duration duration = 7;
+    bool in_game_notification = 8;
+    bool chat_notify = 9;
+    bool middle_click_remove = 10;
+    lunarclient.apollo.marker.v1.MarkerStyle style = 11;
+}
+
+message RemoveMarkerMessage {
+    string id = 1;
+}
+
+message ResetMarkersMessage {
+}
+
+message MarkerFlag {
+  oneof 
+flag {
+  }
+    lunarclient.apollo.marker.v1.NormalMarker normal = 1;
+    lunarclient.apollo.marker.v1.DangerMarker danger = 2;
+    lunarclient.apollo.marker.v1.InfoMarker info = 3;
+    lunarclient.apollo.marker.v1.InterestMarker interest = 4;
+}
+
+message NormalMarker {
+    lunarclient.apollo.common.v1.Color color = 1;
+}
+
+message DangerMarker {
+    lunarclient.apollo.common.v1.Color color = 1;
+}
+
+message InfoMarker {
+    lunarclient.apollo.common.v1.Color color = 1;
+}
+
+message InterestMarker {
+    lunarclient.apollo.common.v1.Color color = 1;
+}
+
+message MarkerTarget {
+  oneof 
+target {
+  }
+    lunarclient.apollo.marker.v1.ItemTarget item = 1;
+    lunarclient.apollo.marker.v1.BlockTarget block = 2;
+    lunarclient.apollo.marker.v1.EntityTarget entity = 3;
+    lunarclient.apollo.marker.v1.PlayerTarget player = 4;
+}
+
+message ItemTarget {
+    lunarclient.apollo.common.v1.ItemStackIcon item_stack = 1;
+}
+
+message BlockTarget {
+    lunarclient.apollo.common.v1.ItemStackIcon item_stack = 1;
+}
+
+message EntityTarget {
+    string entity_type = 1;
+}
+
+message PlayerTarget {
+    lunarclient.apollo.common.v1.Uuid uuid = 1;
+    string name = 2;
+}
+
+message MarkerStyle {
+    float scale = 1;
+    bool animate_marker_on_hover = 2;
+    bool compact_mode = 3;
+    bool text_shadow = 4;
+    string owner_suffix = 5;
+    lunarclient.apollo.marker.v1.MarkerOwnerDisplay owner_display = 6;
+    lunarclient.apollo.marker.v1.MarkerDisplayCondition show_owner = 7;
+    lunarclient.apollo.marker.v1.MarkerDisplayCondition show_coordinates = 8;
+    lunarclient.apollo.marker.v1.MarkerDisplayCondition show_distance = 9;
+    lunarclient.apollo.marker.v1.MarkerDisplayCondition show_description = 10;
+    lunarclient.apollo.marker.v1.MarkerDescriptionDisplay description_display = 11;
+}
+

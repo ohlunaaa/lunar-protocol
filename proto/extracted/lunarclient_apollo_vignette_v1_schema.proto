@@ -1,0 +1,11 @@
+syntax = "proto3";
+package lunarclient.apollo.vignette.v1;
+
+message DisplayVignetteMessage {
+    string resource_location = 1;
+    float opacity = 2;
+}
+
+message ResetVignetteMessage {
+}
+

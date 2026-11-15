@@ -1,0 +1,12 @@
+syntax = "proto3";
+package lunarclient.websocket.performance.v1;
+
+import "google/protobuf/duration.proto";
+
+message StartJfrProfilePush {
+    google.protobuf.Duration duration = 1;
+}
+
+message StopJfrProfilePush {
+}
+

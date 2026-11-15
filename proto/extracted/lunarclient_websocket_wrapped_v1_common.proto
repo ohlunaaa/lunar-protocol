@@ -1,0 +1,13 @@
+syntax = "proto3";
+package lunarclient.websocket.wrapped.v1;
+
+enum WrappedLeaderboardVisibility {
+  WRAPPED_LEADERBOARD_VISIBILITY_UNSPECIFIED = 0;
+  WRAPPED_LEADERBOARD_VISIBILITY_EVERYONE = 1;
+  WRAPPED_LEADERBOARD_VISIBILITY_NOONE = 2;
+}
+message CounterUpdate {
+    string counter = 1;
+    int32 delta = 2;
+}
+

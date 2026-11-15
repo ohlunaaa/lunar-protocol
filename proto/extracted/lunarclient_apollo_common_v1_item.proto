@@ -1,0 +1,10 @@
+syntax = "proto3";
+package lunarclient.apollo.common.v1;
+
+message CustomModelData {
+    repeated float floats = 1;
+    repeated bool flags = 2;
+    repeated string strings = 3;
+    repeated int32 colors = 4;
+}
+

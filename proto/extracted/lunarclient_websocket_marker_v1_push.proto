@@ -1,0 +1,11 @@
+syntax = "proto3";
+package lunarclient.websocket.marker.v1;
+
+import "lunarclient/common/v1/uuid.proto";
+import "lunarclient/websocket/marker/v1/common.proto";
+
+message NewMarkerPush {
+    lunarclient.common.v1.Uuid sender_uuid = 1;
+    lunarclient.websocket.marker.v1.Marker marker = 2;
+}
+

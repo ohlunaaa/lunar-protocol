@@ -1,0 +1,8 @@
+syntax = "proto3";
+package lunarclient.apollo.hud.v1;
+
+message HudPosition {
+    float x = 1;
+    float y = 2;
+}
+

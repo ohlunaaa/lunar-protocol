@@ -1,0 +1,8 @@
+syntax = "proto3";
+package lunarclient.apollo.common.v1;
+
+message Uuid {
+    fixed64 high64 = 1;
+    fixed64 low64 = 2;
+}
+

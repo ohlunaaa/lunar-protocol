@@ -1,0 +1,10 @@
+syntax = "proto3";
+package lunarclient.apollo.nickhider.v1;
+
+message OverrideNickHiderMessage {
+    string nick = 1;
+}
+
+message ResetNickHiderMessage {
+}
+

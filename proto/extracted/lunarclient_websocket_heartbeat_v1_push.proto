@@ -1,0 +1,10 @@
+syntax = "proto3";
+package lunarclient.websocket.heartbeat.v1;
+
+message RefreshMetadataPush {
+}
+
+message CheckForUpdatesPush {
+    bool force_install = 1;
+}
+

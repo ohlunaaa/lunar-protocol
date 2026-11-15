@@ -1,0 +1,87 @@
+syntax = "proto3";
+package lunarclient.apollo.cosmetic.v1;
+
+import "lunarclient/apollo/common/v1/location.proto";
+import "lunarclient/apollo/common/v1/uuid.proto";
+import "lunarclient/apollo/packetenrichment/v1/raytrace.proto";
+import "google/protobuf/duration.proto";
+
+message EquipNpcCosmeticsMessage {
+    lunarclient.apollo.common.v1.Uuid npc_uuid = 1;
+    repeated lunarclient.apollo.cosmetic.v1.Cosmetic cosmetics = 2;
+    bool copy_local_cosmetics = 3;
+}
+
+message UnequipNpcCosmeticsMessage {
+    lunarclient.apollo.common.v1.Uuid npc_uuid = 1;
+    repeated int32 cosmetic_ids = 2;
+}
+
+message ResetNpcCosmeticsMessage {
+    lunarclient.apollo.common.v1.Uuid npc_uuid = 1;
+}
+
+message Cosmetic {
+  oneof 
+options {
+  }
+    int32 id = 1;
+    lunarclient.apollo.cosmetic.v1.HatOptions hat_options = 2;
+    lunarclient.apollo.cosmetic.v1.CloakOptions cloak_options = 3;
+    lunarclient.apollo.cosmetic.v1.PetOptions pet_options = 4;
+    lunarclient.apollo.cosmetic.v1.BodyOptions body_options = 5;
+}
+
+message HatOptions {
+    bool show_over_helmet = 1;
+    bool show_over_skin_layer = 2;
+    float height_offset = 3;
+}
+
+message CloakOptions {
+    bool use_cloth_physics = 1;
+}
+
+message PetOptions {
+    bool flip_shoulder = 1;
+}
+
+message BodyOptions {
+    bool show_over_chestplate = 1;
+    bool show_over_leggings = 2;
+    bool show_over_boots = 3;
+}
+
+message StartNpcEmoteMessage {
+    lunarclient.apollo.common.v1.Uuid npc_uuid = 1;
+    lunarclient.apollo.cosmetic.v1.Emote emote = 2;
+}
+
+message StopNpcEmoteMessage {
+    lunarclient.apollo.common.v1.Uuid npc_uuid = 1;
+}
+
+message ResetNpcEmotesMessage {
+}
+
+message Emote {
+    int32 id = 1;
+    int32 metadata = 2;
+}
+
+message DisplaySprayMessage {
+    int32 spray_id = 1;
+    lunarclient.apollo.common.v1.BlockLocation location = 2;
+    lunarclient.apollo.packetenrichment.v1.Direction facing = 3;
+    float rotation = 4;
+    google.protobuf.Duration duration = 5;
+}
+
+message RemoveSprayMessage {
+    int32 spray_id = 1;
+    lunarclient.apollo.common.v1.BlockLocation location = 2;
+}
+
+message ResetSpraysMessage {
+}
+

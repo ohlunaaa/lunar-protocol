@@ -1,0 +1,93 @@
+syntax = "proto3";
+package lunarclient.websocket.v1;
+import "common.proto";
+
+// ---------------------------------------------------------------------------
+// Handshake types (first frame after the WS upgrade)
+// Based on real Moonlight mod source code
+// ---------------------------------------------------------------------------
+
+message UuidAndUsername {
+  lunarclient.common.v1.Uuid uuid     = 1;
+  string                     username = 2;
+}
+
+// Field 2 in the handshake: just the Lunar version as a string
+message VersionInfo {
+  string version = 1;  // e.g. "2.16.0"
+}
+
+// Field 7 in the handshake
+message Language {
+  string language = 1;  // "eng"
+  string locale   = 2;  // "en_US"
+}
+
+// MinecraftVersion uses a VERSION STRING, not an int32!
+message MinecraftVersion {
+  string version = 1;  // e.g. "V1_8" for 1.8.9
+}
+
+// LunarClientVersion: order is branch=1, commit=2, semver=3
+message LunarClientVersion {
+  string branch     = 1;  // e.g. "dev"
+  string git_commit = 2;  // short hash, e.g. "a1b2c3d"
+  string version    = 3;  // e.g. "2.16.0"
+}
+
+// Field 8 in the handshake: game block (Minecraft + Lunar version)
+message GameBlock {
+  MinecraftVersion   minecraft_version    = 1;
+  LunarClientVersion lunar_client_version = 2;
+}
+
+message MinecraftIdentity {
+  UuidAndUsername player            = 1;
+  int32           type              = 2;  // 1 = Microsoft
+  string          authenticator_jwt = 3;
+}
+
+// Handshake fields (verified against the Moonlight source):
+//   1 = MinecraftIdentity
+//   2 = VersionInfo (just the version string)
+//   3, 4 = unknown (leave empty)
+//   5 = string os  ("win32", "darwin", "linux")
+//   6 = string arch ("x64", "arm64")
+//   7 = Language
+//   8 = GameBlock  (MinecraftVersion + LunarClientVersion)
+message Handshake {
+  MinecraftIdentity identity     = 1;
+  VersionInfo       version_info = 2;
+  string            os           = 5;
+  string            arch         = 6;
+  Language          language     = 7;
+  GameBlock         game_block   = 8;
+}
+
+// ---------------------------------------------------------------------------
+// RPC framing (all messages after the handshake)
+// ---------------------------------------------------------------------------
+
+// RequestId = ASCII string of the counter as bytes ("0", "1", "2", ...)
+message ServerboundWebSocketMessage {
+  bytes  request_id = 1;
+  string service    = 2;
+  string method     = 3;
+  bytes  input      = 4;
+}
+
+message RpcResponse {
+  bytes request_id = 1;
+  bytes output     = 2;
+}
+
+message PushNotification {
+  string service = 1;
+  string push    = 2;
+  bytes  payload = 3;
+}
+
+message ClientboundWebSocketMessage {
+  RpcResponse      rpc_response      = 1;
+  PushNotification push_notification = 2;
+}

@@ -1,0 +1,25 @@
+syntax = "proto3";
+package lunarclient.websocket.store.v1;
+
+import "lunarclient/websocket/protocol/v1/common.proto";
+import "lunarclient/websocket/store/v1/common.proto";
+
+message LoginRequest {
+}
+
+message LoginResponse {
+    lunarclient.websocket.store.v1.IncomingGiftPrivacy incoming_gift_privacy = 1;
+    int64 coins = 2;
+}
+
+message SetIncomingGiftPrivacyRequest {
+    lunarclient.websocket.store.v1.IncomingGiftPrivacy incoming_gift_privacy = 1;
+}
+
+message SetIncomingGiftPrivacyResponse {
+}
+
+service StoreService {
+  rpc Login(lunarclient.websocket.store.v1.LoginRequest) returns (lunarclient.websocket.store.v1.LoginResponse);
+  rpc SetIncomingGiftPrivacy(lunarclient.websocket.store.v1.SetIncomingGiftPrivacyRequest) returns (lunarclient.websocket.store.v1.SetIncomingGiftPrivacyResponse);
+}

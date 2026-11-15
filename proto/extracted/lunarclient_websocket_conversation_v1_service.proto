@@ -1,0 +1,420 @@
+syntax = "proto3";
+package lunarclient.websocket.conversation.v1;
+
+import "google/protobuf/timestamp.proto";
+import "lunarclient/websocket/conversation/v1/common.proto";
+import "lunarclient/websocket/protocol/v1/common.proto";
+import "lunarclient/common/v1/uuid.proto";
+
+message LoginRequest {
+  oneof 
+_using_satellite {
+  }
+    bool using_satellite = 1;
+}
+
+message LoginResponse {
+    repeated lunarclient.websocket.conversation.v1.ConversationStub conversations = 1;
+    int32 participant_limit = 2;
+    repeated lunarclient.websocket.conversation.v1.LunarStickerPack sticker_packs = 3;
+    repeated lunarclient.websocket.conversation.v1.LunarEmojiCategory emoji_categories = 4;
+    int32 total_conversations = 5;
+    int32 max_message_length = 6;
+    int32 pinned_conversation_limit = 7;
+}
+
+message SendConversationMessageRequest {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.websocket.conversation.v1.ConversationMessageContents message_contents = 2;
+}
+
+message SendConversationMessageResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_UNKNOWN_CONVERSATION = 2;
+    STATUS_INNAPPROPRIATE = 3;
+    STATUS_EXCEEDS_LIMIT = 4;
+  }
+    lunarclient.websocket.conversation.v1.SendConversationMessageResponse.Status status = 1;
+}
+
+message PreSendActionRequest {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.websocket.conversation.v1.PreSendAction action = 2;
+}
+
+message PreSendActionResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_UNKNOWN_CONVERSATION = 2;
+  }
+    lunarclient.websocket.conversation.v1.PreSendActionResponse.Status status = 1;
+}
+
+message LoadConversationRequest {
+  oneof 
+_before_message_id {
+  }
+  oneof 
+_after_message_id {
+  }
+  oneof 
+_anchor_message_id {
+  }
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.common.v1.Uuid before_message_id = 2;
+    lunarclient.common.v1.Uuid after_message_id = 3;
+    lunarclient.common.v1.Uuid anchor_message_id = 4;
+}
+
+message LoadConversationResponse {
+    repeated lunarclient.websocket.conversation.v1.ConversationMessage messages = 1;
+}
+
+message CreateConversationRequest {
+    lunarclient.websocket.conversation.v1.ConversationType type = 1;
+    repeated lunarclient.common.v1.Uuid participant_uuids = 2;
+}
+
+message CreateConversationResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_LIMIT_REACHED = 2;
+    STATUS_INVALID_PARTICIPANTS = 3;
+    STATUS_CONVERSATION_ALREADY_EXISTS = 4;
+  }
+    lunarclient.websocket.conversation.v1.CreateConversationResponse.Status status = 1;
+    lunarclient.websocket.conversation.v1.Conversation conversation = 2;
+}
+
+message DeleteConversationRequest {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+}
+
+message DeleteConversationResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_NOT_IN_CONVERSATION = 2;
+    STATUS_NOT_OWNER = 3;
+    STATUS_ALREADY_DELETED = 4;
+  }
+    lunarclient.websocket.conversation.v1.DeleteConversationResponse.Status status = 1;
+}
+
+message DeleteConversationMessageRequest {
+    lunarclient.common.v1.Uuid message_id = 1;
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 2;
+}
+
+message DeleteConversationMessageResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_NOT_USERS_MESSAGE = 2;
+    STATUS_ALREADY_DELETED = 3;
+  }
+    lunarclient.websocket.conversation.v1.DeleteConversationMessageResponse.Status status = 1;
+}
+
+message DeleteConversationMessageHistoryRequest {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+}
+
+message DeleteConversationMessageHistoryResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_UNKNOWN_CONVERSATION = 2;
+    STATUS_NOT_IN_CONVERSATION = 3;
+  }
+    lunarclient.websocket.conversation.v1.DeleteConversationMessageHistoryResponse.Status status = 1;
+}
+
+message UpdateConversationOwnerRequest {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.common.v1.Uuid target_uuid = 2;
+}
+
+message UpdateConversationOwnerResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_NOT_IN_CONVERSATION = 2;
+    STATUS_NOT_OWNER = 3;
+    STATUS_TARGET_ALREADY_OWNER = 4;
+    STATUS_TARGET_NOT_FOUND = 5;
+  }
+    lunarclient.websocket.conversation.v1.UpdateConversationOwnerResponse.Status status = 1;
+}
+
+message AddConversationParticipantsRequest {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    repeated lunarclient.common.v1.UuidAndUsername targets = 2;
+}
+
+message AddConversationParticipantsResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_NOT_IN_CONVERSATION = 2;
+    STATUS_TARGET_ALREADY_IN_CONVERSATION = 3;
+    STATUS_TARGET_NOT_FOUND = 4;
+    STATUS_TARGET_INVITES_DISABLED = 5;
+    STATUS_TARGET_NOT_FRIEND = 6;
+    STATUS_LIMIT_REACHED = 7;
+  }
+    lunarclient.websocket.conversation.v1.AddConversationParticipantsResponse.Status status = 1;
+}
+
+message RemoveConversationParticipantRequest {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.common.v1.UuidAndUsername target = 2;
+}
+
+message RemoveConversationParticipantResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_NOT_IN_CONVERSATION = 2;
+    STATUS_TARGET_NOT_IN_CONVERSATION = 3;
+    STATUS_TARGET_NOT_FOUND = 4;
+    STATUS_TARGET_IS_OWNER = 5;
+    STATUS_NOT_OWNER = 6;
+  }
+    lunarclient.websocket.conversation.v1.RemoveConversationParticipantResponse.Status status = 1;
+}
+
+message UpdateConversationNameRequest {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    string name = 2;
+}
+
+message UpdateConversationNameResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_NOT_IN_CONVERSATION = 2;
+    STATUS_INVALID_INPUT = 3;
+    STATUS_NAME_POLICY_DISABLED = 4;
+    STATUS_INNAPPROPRIATE = 5;
+  }
+    lunarclient.websocket.conversation.v1.UpdateConversationNameResponse.Status status = 1;
+}
+
+message UpdateConversationIconRequest {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.websocket.conversation.v1.ConversationImage image = 2;
+}
+
+message UpdateConversationIconResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_NOT_IN_CONVERSATION = 2;
+    STATUS_ICON_POLICY_DISABLED = 3;
+    STATUS_INNAPPROPRIATE = 4;
+  }
+    lunarclient.websocket.conversation.v1.UpdateConversationIconResponse.Status status = 1;
+}
+
+message LoadPinnedMessagesRequest {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+}
+
+message LoadPinnedMessagesResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_NOT_IN_CONVERSATION = 2;
+  }
+    lunarclient.websocket.conversation.v1.LoadPinnedMessagesResponse.Status status = 1;
+    repeated lunarclient.websocket.conversation.v1.ConversationMessage messages = 2;
+}
+
+message AddPinnedMessageRequest {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.common.v1.Uuid message_id = 2;
+}
+
+message AddPinnedMessageResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_NOT_IN_CONVERSATION = 2;
+    STATUS_MESSAGE_PINNING_POLICY_DISABLED = 3;
+    STATUS_MESSAGE_NOT_FOUND = 4;
+  }
+    lunarclient.websocket.conversation.v1.AddPinnedMessageResponse.Status status = 1;
+}
+
+message RemovePinnedMessageRequest {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.common.v1.Uuid message_id = 2;
+}
+
+message RemovePinnedMessageResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_NOT_IN_CONVERSATION = 2;
+    STATUS_MESSAGE_PINNING_POLICY_DISABLED = 3;
+    STATUS_MESSAGE_NOT_FOUND = 4;
+  }
+    lunarclient.websocket.conversation.v1.RemovePinnedMessageResponse.Status status = 1;
+}
+
+message SetInvitePolicyRequest {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.websocket.conversation.v1.InvitePolicy policy = 2;
+}
+
+message SetInvitePolicyResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_NOT_IN_CONVERSATION = 2;
+    STATUS_NOT_OWNER = 3;
+  }
+    lunarclient.websocket.conversation.v1.SetInvitePolicyResponse.Status status = 1;
+}
+
+message SetNamePolicyRequest {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.websocket.conversation.v1.NamePolicy policy = 2;
+}
+
+message SetNamePolicyResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_NOT_IN_CONVERSATION = 2;
+    STATUS_NOT_OWNER = 3;
+  }
+    lunarclient.websocket.conversation.v1.SetNamePolicyResponse.Status status = 1;
+}
+
+message SetIconPolicyRequest {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.websocket.conversation.v1.IconPolicy policy = 2;
+}
+
+message SetIconPolicyResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_NOT_IN_CONVERSATION = 2;
+    STATUS_NOT_OWNER = 3;
+  }
+    lunarclient.websocket.conversation.v1.SetIconPolicyResponse.Status status = 1;
+}
+
+message SetMessagePinningPolicyRequest {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.websocket.conversation.v1.MessagePinningPolicy policy = 2;
+}
+
+message SetMessagePinningPolicyResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_NOT_IN_CONVERSATION = 2;
+    STATUS_NOT_OWNER = 3;
+  }
+    lunarclient.websocket.conversation.v1.SetMessagePinningPolicyResponse.Status status = 1;
+}
+
+message SetConversationPinnedRequest {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    bool pinned = 2;
+}
+
+message SetConversationPinnedResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_NOT_IN_CONVERSATION = 2;
+    STATUS_LIMIT_REACHED = 3;
+  }
+    lunarclient.websocket.conversation.v1.SetConversationPinnedResponse.Status status = 1;
+}
+
+message GetUploadUrlsRequest {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.websocket.conversation.v1.UploadUsage usage = 2;
+    repeated lunarclient.websocket.conversation.v1.UploadRequestItem items = 3;
+}
+
+message GetUploadUrlsResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_NOT_IN_CONVERSATION = 2;
+    STATUS_ICON_POLICY_DISABLED = 3;
+  }
+    lunarclient.websocket.conversation.v1.GetUploadUrlsResponse.Status status = 1;
+    repeated lunarclient.websocket.conversation.v1.PresignedUpload uploads = 2;
+}
+
+message UnfocusConversationsRequest {
+}
+
+message UnfocusConversationsResponse {
+}
+
+message GetConversationsRequest {
+  oneof 
+_limit {
+  }
+  oneof 
+_cursor {
+  }
+  oneof 
+_conversation_reference {
+  }
+    int32 limit = 1;
+    google.protobuf.Timestamp cursor = 2;
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 3;
+}
+
+message GetConversationsResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_CONVERSATION_NOT_FOUND = 2;
+    STATUS_NOT_IN_CONVERSATION = 3;
+  }
+    lunarclient.websocket.conversation.v1.GetConversationsResponse.Status status = 1;
+    repeated lunarclient.websocket.conversation.v1.Conversation conversations = 2;
+    int32 total_conversations = 3;
+}
+
+service ConversationService {
+  rpc Login(lunarclient.websocket.conversation.v1.LoginRequest) returns (lunarclient.websocket.conversation.v1.LoginResponse);
+  rpc SendConversationMessage(lunarclient.websocket.conversation.v1.SendConversationMessageRequest) returns (lunarclient.websocket.conversation.v1.SendConversationMessageResponse);
+  rpc PreSendAction(lunarclient.websocket.conversation.v1.PreSendActionRequest) returns (lunarclient.websocket.conversation.v1.PreSendActionResponse);
+  rpc LoadConversation(lunarclient.websocket.conversation.v1.LoadConversationRequest) returns (lunarclient.websocket.conversation.v1.LoadConversationResponse);
+  rpc CreateConversation(lunarclient.websocket.conversation.v1.CreateConversationRequest) returns (lunarclient.websocket.conversation.v1.CreateConversationResponse);
+  rpc DeleteConversation(lunarclient.websocket.conversation.v1.DeleteConversationRequest) returns (lunarclient.websocket.conversation.v1.DeleteConversationResponse);
+  rpc DeleteConversationMessage(lunarclient.websocket.conversation.v1.DeleteConversationMessageRequest) returns (lunarclient.websocket.conversation.v1.DeleteConversationMessageResponse);
+  rpc DeleteConversationMessageHistory(lunarclient.websocket.conversation.v1.DeleteConversationMessageHistoryRequest) returns (lunarclient.websocket.conversation.v1.DeleteConversationMessageHistoryResponse);
+  rpc UpdateConversationOwner(lunarclient.websocket.conversation.v1.UpdateConversationOwnerRequest) returns (lunarclient.websocket.conversation.v1.UpdateConversationOwnerResponse);
+  rpc AddConversationParticipants(lunarclient.websocket.conversation.v1.AddConversationParticipantsRequest) returns (lunarclient.websocket.conversation.v1.AddConversationParticipantsResponse);
+  rpc RemoveConversationParticipant(lunarclient.websocket.conversation.v1.RemoveConversationParticipantRequest) returns (lunarclient.websocket.conversation.v1.RemoveConversationParticipantResponse);
+  rpc UpdateConversationName(lunarclient.websocket.conversation.v1.UpdateConversationNameRequest) returns (lunarclient.websocket.conversation.v1.UpdateConversationNameResponse);
+  rpc UpdateConversationIcon(lunarclient.websocket.conversation.v1.UpdateConversationIconRequest) returns (lunarclient.websocket.conversation.v1.UpdateConversationIconResponse);
+  rpc LoadPinnedMessages(lunarclient.websocket.conversation.v1.LoadPinnedMessagesRequest) returns (lunarclient.websocket.conversation.v1.LoadPinnedMessagesResponse);
+  rpc AddPinnedMessage(lunarclient.websocket.conversation.v1.AddPinnedMessageRequest) returns (lunarclient.websocket.conversation.v1.AddPinnedMessageResponse);
+  rpc RemovePinnedMessage(lunarclient.websocket.conversation.v1.RemovePinnedMessageRequest) returns (lunarclient.websocket.conversation.v1.RemovePinnedMessageResponse);
+  rpc SetInvitePolicy(lunarclient.websocket.conversation.v1.SetInvitePolicyRequest) returns (lunarclient.websocket.conversation.v1.SetInvitePolicyResponse);
+  rpc SetNamePolicy(lunarclient.websocket.conversation.v1.SetNamePolicyRequest) returns (lunarclient.websocket.conversation.v1.SetNamePolicyResponse);
+  rpc SetIconPolicy(lunarclient.websocket.conversation.v1.SetIconPolicyRequest) returns (lunarclient.websocket.conversation.v1.SetIconPolicyResponse);
+  rpc SetMessagePinningPolicy(lunarclient.websocket.conversation.v1.SetMessagePinningPolicyRequest) returns (lunarclient.websocket.conversation.v1.SetMessagePinningPolicyResponse);
+  rpc SetConversationPinned(lunarclient.websocket.conversation.v1.SetConversationPinnedRequest) returns (lunarclient.websocket.conversation.v1.SetConversationPinnedResponse);
+  rpc GetUploadUrls(lunarclient.websocket.conversation.v1.GetUploadUrlsRequest) returns (lunarclient.websocket.conversation.v1.GetUploadUrlsResponse);
+  rpc UnfocusConversations(lunarclient.websocket.conversation.v1.UnfocusConversationsRequest) returns (lunarclient.websocket.conversation.v1.UnfocusConversationsResponse);
+  rpc GetConversations(lunarclient.websocket.conversation.v1.GetConversationsRequest) returns (lunarclient.websocket.conversation.v1.GetConversationsResponse);
+}

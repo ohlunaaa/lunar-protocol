@@ -1,0 +1,16 @@
+syntax = "proto3";
+package lunarclient.websocket.jam.v1;
+
+import "lunarclient/websocket/jam/v1/common.proto";
+import "lunarclient/websocket/protocol/v1/common.proto";
+
+message LoginRequest {
+}
+
+message LoginResponse {
+    repeated lunarclient.websocket.jam.v1.OwnedJam owned_jams = 1;
+}
+
+service JamService {
+  rpc Login(lunarclient.websocket.jam.v1.LoginRequest) returns (lunarclient.websocket.jam.v1.LoginResponse);
+}

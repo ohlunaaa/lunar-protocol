@@ -1,0 +1,42 @@
+syntax = "proto3";
+package lunarclient.websocket.analytics.v1;
+
+import "lunarclient/websocket/analytics/v1/common.proto";
+import "lunarclient/websocket/protocol/v1/common.proto";
+
+message RecordCountersRequest {
+    repeated lunarclient.websocket.analytics.v1.CounterUpdate updates = 1;
+}
+
+message RecordCountersResponse {
+}
+
+message RecordPinnedServerInteractionRequest {
+  enum InteractionType {
+    INTERACTION_TYPE_UNSPECIFIED = 0;
+    INTERACTION_TYPE_HOVER = 1;
+    INTERACTION_TYPE_PLAY = 2;
+  }
+    string server_ip = 1;
+    lunarclient.websocket.analytics.v1.RecordPinnedServerInteractionRequest.InteractionType interaction_type = 2;
+}
+
+message RecordPinnedServerInteractionResponse {
+}
+
+message RecordEnabledModsRequest {
+    repeated lunarclient.websocket.analytics.v1.RecordEnabledModsRequest.ModsEntry mods = 1;
+  message ModsEntry {
+      string key = 1;
+      bool value = 2;
+  }
+}
+
+message RecordEnabledModsResponse {
+}
+
+service AnalyticsService {
+  rpc RecordCounters(lunarclient.websocket.analytics.v1.RecordCountersRequest) returns (lunarclient.websocket.analytics.v1.RecordCountersResponse);
+  rpc RecordPinnedServerInteraction(lunarclient.websocket.analytics.v1.RecordPinnedServerInteractionRequest) returns (lunarclient.websocket.analytics.v1.RecordPinnedServerInteractionResponse);
+  rpc RecordEnabledMods(lunarclient.websocket.analytics.v1.RecordEnabledModsRequest) returns (lunarclient.websocket.analytics.v1.RecordEnabledModsResponse);
+}

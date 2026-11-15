@@ -1,0 +1,11 @@
+syntax = "proto3";
+package lunarclient.apollo.evnt.v1;
+
+message OverrideHeartTextureMessage {
+    int32 location_x = 1;
+    bool hardcore = 2;
+}
+
+message ResetHeartTextureMessage {
+}
+

@@ -1,0 +1,16 @@
+syntax = "proto3";
+package lunarclient.websocket.apollo.v1;
+
+import "lunarclient/websocket/protocol/v1/common.proto";
+
+message TrackFeatureAdoptionRequest {
+    string module = 1;
+    string feature = 2;
+}
+
+message TrackFeatureAdoptionResponse {
+}
+
+service ApolloService {
+  rpc TrackFeatureAdoption(lunarclient.websocket.apollo.v1.TrackFeatureAdoptionRequest) returns (lunarclient.websocket.apollo.v1.TrackFeatureAdoptionResponse);
+}

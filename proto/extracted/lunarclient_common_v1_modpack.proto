@@ -1,0 +1,12 @@
+syntax = "proto3";
+package lunarclient.common.v1;
+
+message PlayerModpack {
+    string modrinth_id = 1;
+    string name = 2;
+    string icon_url = 3;
+    string modrinth_version_id = 4;
+    string curseforge_id = 5;
+    string curseforge_file_id = 6;
+}
+

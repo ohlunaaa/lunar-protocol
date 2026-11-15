@@ -1,0 +1,6 @@
+syntax = "proto3";
+package lunarclient.gameipc.location.v1;
+
+message FocusGamePush {
+}
+

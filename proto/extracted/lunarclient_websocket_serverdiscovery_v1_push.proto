@@ -1,0 +1,10 @@
+syntax = "proto3";
+package lunarclient.websocket.serverdiscovery.v1;
+
+import "lunarclient/websocket/serverdiscovery/v1/common.proto";
+
+message ServerSectionCardsPush {
+    string section_id = 1;
+    repeated lunarclient.websocket.serverdiscovery.v1.ServerCard cards = 2;
+}
+

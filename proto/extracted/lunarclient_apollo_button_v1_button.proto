@@ -1,0 +1,63 @@
+syntax = "proto3";
+package lunarclient.apollo.button.v1;
+
+import "lunarclient/apollo/common/v1/color.proto";
+import "lunarclient/apollo/common/v1/icon.proto";
+import "lunarclient/apollo/hud/v1/position.proto";
+
+enum ButtonShape {
+  BUTTON_SHAPE_UNSPECIFIED = 0;
+  BUTTON_SHAPE_ROUNDED_SQUARE = 1;
+  BUTTON_SHAPE_CIRCLE = 2;
+}
+enum ButtonClientAction {
+  BUTTON_CLIENT_ACTION_UNSPECIFIED = 0;
+  BUTTON_CLIENT_ACTION_OPEN_MINIMAP_VIEW = 1;
+  BUTTON_CLIENT_ACTION_OPEN_WAYPOINTS_MENU = 2;
+}
+message ButtonSize {
+    float width = 1;
+    float height = 2;
+}
+
+message ButtonContentPart {
+  oneof 
+part {
+  }
+    string adventure_json_text = 1;
+    lunarclient.apollo.common.v1.Icon icon = 2;
+}
+
+message ButtonTooltip {
+    repeated string adventure_json_lines = 1;
+}
+
+message ButtonContent {
+    repeated lunarclient.apollo.button.v1.ButtonContentPart parts = 1;
+    float scale = 2;
+}
+
+message Button {
+  oneof 
+on_click {
+  }
+    string id = 1;
+    lunarclient.apollo.hud.v1.HudPosition position = 2;
+    lunarclient.apollo.button.v1.ButtonSize size = 3;
+    lunarclient.apollo.button.v1.ButtonShape shape = 4;
+    lunarclient.apollo.common.v1.Color background_color = 5;
+    lunarclient.apollo.common.v1.Color border_color = 6;
+    lunarclient.apollo.button.v1.ButtonContent content = 7;
+    lunarclient.apollo.button.v1.ButtonTooltip tooltip = 8;
+    string run_command = 9;
+    string open_url = 10;
+    lunarclient.apollo.button.v1.ButtonClientAction client_action = 11;
+    lunarclient.apollo.common.v1.Color hovered_background_color = 12;
+    lunarclient.apollo.common.v1.Color hovered_border_color = 13;
+}
+
+message ButtonUpdate {
+    lunarclient.apollo.button.v1.ButtonContent content = 1;
+    lunarclient.apollo.button.v1.ButtonTooltip tooltip = 2;
+}
+

@@ -1,0 +1,32 @@
+syntax = "proto3";
+package lunarclient.websocket.screenshot.v1;
+
+import "lunarclient/websocket/protocol/v1/common.proto";
+import "lunarclient/websocket/screenshot/v1/common.proto";
+
+message RecordScreenshotRequest {
+    lunarclient.websocket.screenshot.v1.ScreenshotMessage screenshot = 1;
+}
+
+message RecordScreenshotResponse {
+}
+
+message LoginRequest {
+}
+
+message LoginResponse {
+    lunarclient.websocket.screenshot.v1.ScreenshotPrivacy default_upload_privacy = 1;
+}
+
+message SetDefaultUploadPrivacyRequest {
+    lunarclient.websocket.screenshot.v1.ScreenshotPrivacy default_upload_privacy = 1;
+}
+
+message SetDefaultUploadPrivacyResponse {
+}
+
+service ScreenshotService {
+  rpc Login(lunarclient.websocket.screenshot.v1.LoginRequest) returns (lunarclient.websocket.screenshot.v1.LoginResponse);
+  rpc RecordScreenshot(lunarclient.websocket.screenshot.v1.RecordScreenshotRequest) returns (lunarclient.websocket.screenshot.v1.RecordScreenshotResponse);
+  rpc SetDefaultUploadPrivacy(lunarclient.websocket.screenshot.v1.SetDefaultUploadPrivacyRequest) returns (lunarclient.websocket.screenshot.v1.SetDefaultUploadPrivacyResponse);
+}

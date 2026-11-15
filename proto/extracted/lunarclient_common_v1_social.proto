@@ -1,0 +1,17 @@
+syntax = "proto3";
+package lunarclient.common.v1;
+
+enum UserSocialPlatform {
+  USER_SOCIAL_PLATFORM_UNSPECIFIED = 0;
+  USER_SOCIAL_PLATFORM_TWITTER = 1;
+  USER_SOCIAL_PLATFORM_DISCORD = 2;
+  USER_SOCIAL_PLATFORM_TWITCH = 3;
+  USER_SOCIAL_PLATFORM_YOUTUBE = 4;
+  USER_SOCIAL_PLATFORM_TIKTOK = 5;
+}
+message UserSocial {
+    lunarclient.common.v1.UserSocialPlatform platform = 1;
+    string username = 2;
+    string avatar = 3;
+}
+

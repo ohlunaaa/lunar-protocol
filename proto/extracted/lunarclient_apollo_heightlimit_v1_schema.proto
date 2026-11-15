@@ -1,0 +1,16 @@
+syntax = "proto3";
+package lunarclient.apollo.heightlimit.v1;
+
+message OverrideHeightLimitMessage {
+    string world = 1;
+    int32 limit = 2;
+    string display_name_adventure_json_lines = 3;
+}
+
+message RemoveHeightLimitMessage {
+    string world = 1;
+}
+
+message ResetHeightLimitsMessage {
+}
+

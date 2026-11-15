@@ -1,0 +1,36 @@
+syntax = "proto3";
+package lunarclient.apollo.inventory.v1;
+
+import "lunarclient/apollo/button/v1/button.proto";
+
+enum InventoryButtonBox {
+  INVENTORY_BUTTON_BOX_UNSPECIFIED = 0;
+  INVENTORY_BUTTON_BOX_LEFT = 1;
+  INVENTORY_BUTTON_BOX_RIGHT = 2;
+}
+enum InventoryType {
+  INVENTORY_TYPE_UNSPECIFIED = 0;
+  INVENTORY_TYPE_PLAYER = 1;
+}
+message InventoryButton {
+    lunarclient.apollo.button.v1.Button button = 1;
+    lunarclient.apollo.inventory.v1.InventoryType inventory_type = 2;
+    lunarclient.apollo.inventory.v1.InventoryButtonBox box = 3;
+}
+
+message DisplayInventoryButtonsMessage {
+    repeated lunarclient.apollo.inventory.v1.InventoryButton inventory_buttons = 1;
+}
+
+message RemoveInventoryButtonMessage {
+    string id = 1;
+}
+
+message ResetInventoryButtonsMessage {
+}
+
+message UpdateInventoryButtonMessage {
+    string id = 1;
+    lunarclient.apollo.button.v1.ButtonUpdate update = 2;
+}
+

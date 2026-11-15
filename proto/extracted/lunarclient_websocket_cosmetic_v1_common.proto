@@ -1,0 +1,19 @@
+syntax = "proto3";
+package lunarclient.websocket.cosmetic.v1;
+
+import "google/protobuf/timestamp.proto";
+import "lunarclient/common/v1/gift.proto";
+
+message OwnedCosmetic {
+  enum ExpirationReason {
+    EXPIRATION_REASON_UNSPECIFIED = 0;
+    EXPIRATION_REASON_TIME_LAPSED = 1;
+    EXPIRATION_REASON_LEFT_LC_DISCORD = 2;
+  }
+    int32 cosmetic_id = 1;
+    google.protobuf.Timestamp granted_at = 2;
+    google.protobuf.Timestamp expires_at = 3;
+    lunarclient.websocket.cosmetic.v1.OwnedCosmetic.ExpirationReason expiration_reason = 4;
+    lunarclient.common.v1.GiftInfo gift_info = 5;
+}
+

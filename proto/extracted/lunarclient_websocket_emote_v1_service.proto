@@ -1,0 +1,67 @@
+syntax = "proto3";
+package lunarclient.websocket.emote.v1;
+
+import "google/protobuf/timestamp.proto";
+import "lunarclient/websocket/emote/v1/common.proto";
+import "lunarclient/websocket/protocol/v1/common.proto";
+
+message LoginRequest {
+}
+
+message LoginResponse {
+    repeated lunarclient.websocket.emote.v1.OwnedEmote owned_emotes = 7;
+    bool has_all_emotes_flag = 5;
+    repeated lunarclient.websocket.emote.v1.EquippedEmote equipped_emotes = 8;
+    repeated int32 lunar_plus_free_emote_ids = 9;
+}
+
+message UseEmoteRequest {
+    int32 emote_id = 1;
+    int32 emote_metadata = 2;
+    string emote_soundtrack_url = 3;
+    int32 emote_jam_id = 4;
+}
+
+message UseEmoteResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_EMOTE_NOT_OWNED = 2;
+    STATUS_ILLEGAL_SOUNDTRACK = 3;
+    STATUS_RATE_LIMITED = 4;
+  }
+    lunarclient.websocket.emote.v1.UseEmoteResponse.Status status = 1;
+    int32 emote_id = 2;
+    int32 emote_metadata = 3;
+    string emote_soundtrack_url = 4;
+}
+
+message GetJamPlaybackRequest {
+    int32 jam_id = 1;
+}
+
+message GetJamPlaybackResponse {
+    string url = 1;
+    google.protobuf.Timestamp expires_at = 2;
+}
+
+message StopEmoteRequest {
+}
+
+message StopEmoteResponse {
+}
+
+message UpdateEquippedEmotesRequest {
+    repeated lunarclient.websocket.emote.v1.EquippedEmote equipped_emotes = 2;
+}
+
+message UpdateEquippedEmotesResponse {
+}
+
+service EmoteService {
+  rpc Login(lunarclient.websocket.emote.v1.LoginRequest) returns (lunarclient.websocket.emote.v1.LoginResponse);
+  rpc UseEmote(lunarclient.websocket.emote.v1.UseEmoteRequest) returns (lunarclient.websocket.emote.v1.UseEmoteResponse);
+  rpc GetJamPlayback(lunarclient.websocket.emote.v1.GetJamPlaybackRequest) returns (lunarclient.websocket.emote.v1.GetJamPlaybackResponse);
+  rpc StopEmote(lunarclient.websocket.emote.v1.StopEmoteRequest) returns (lunarclient.websocket.emote.v1.StopEmoteResponse);
+  rpc UpdateEquippedEmotes(lunarclient.websocket.emote.v1.UpdateEquippedEmotesRequest) returns (lunarclient.websocket.emote.v1.UpdateEquippedEmotesResponse);
+}

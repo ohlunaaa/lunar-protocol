@@ -1,0 +1,11 @@
+syntax = "proto3";
+package lunarclient.websocket.marker.v1;
+
+import "lunarclient/common/v1/position.proto";
+
+message Marker {
+    lunarclient.common.v1.Vector3f position = 1;
+    repeated string description = 2;
+    string source = 3;
+}
+

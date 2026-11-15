@@ -1,0 +1,294 @@
+syntax = "proto3";
+package lunarclient.websocket.conversation.v1;
+
+import "google/protobuf/timestamp.proto";
+import "lunarclient/common/v1/uuid.proto";
+import "lunarclient/common/v1/color.proto";
+
+enum ConversationType {
+  CONVERSATION_TYPE_UNSPECIFIED = 0;
+  CONVERSATION_TYPE_FRIEND = 1;
+  CONVERSATION_TYPE_GROUP_CHAT = 2;
+}
+enum ConversationMessageKind {
+  CONVERSATION_MESSAGE_KIND_UNSPECIFIED = 0;
+  CONVERSATION_MESSAGE_KIND_USER = 1;
+  CONVERSATION_MESSAGE_KIND_SYSTEM = 2;
+}
+enum PreSendAction {
+  PRE_SEND_ACTION_UNSPECIFIED = 0;
+  PRE_SEND_ACTION_NONE = 1;
+  PRE_SEND_ACTION_TYPING = 2;
+}
+enum InvitePolicy {
+  INVITE_POLICY_UNSPECIFIED = 0;
+  INVITE_POLICY_EVERYONE = 1;
+  INVITE_POLICY_OWNER = 2;
+}
+enum NamePolicy {
+  NAME_POLICY_UNSPECIFIED = 0;
+  NAME_POLICY_EVERYONE = 1;
+  NAME_POLICY_OWNER = 2;
+}
+enum IconPolicy {
+  ICON_POLICY_UNSPECIFIED = 0;
+  ICON_POLICY_EVERYONE = 1;
+  ICON_POLICY_OWNER = 2;
+}
+enum MessagePinningPolicy {
+  MESSAGE_PINNING_POLICY_UNSPECIFIED = 0;
+  MESSAGE_PINNING_POLICY_EVERYONE = 1;
+  MESSAGE_PINNING_POLICY_OWNER = 2;
+}
+enum UploadUsage {
+  UPLOAD_USAGE_UNSPECIFIED = 0;
+  UPLOAD_USAGE_CONVERSATION_ICON = 1;
+  UPLOAD_USAGE_CHAT = 2;
+}
+message Conversation {
+  oneof 
+_name {
+  }
+  oneof 
+_conversation_image_url {
+  }
+  oneof 
+_owner_uuid {
+  }
+  oneof 
+_user_state {
+  }
+  oneof 
+_participant_limit {
+  }
+  oneof 
+_invite_policy {
+  }
+  oneof 
+_name_policy {
+  }
+  oneof 
+_icon_policy {
+  }
+  oneof 
+_message_pinning_policy {
+  }
+  oneof 
+_latest_message {
+  }
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    repeated lunarclient.websocket.conversation.v1.ConversationParticipant participants = 2;
+    lunarclient.websocket.conversation.v1.ConversationType type = 3;
+    google.protobuf.Timestamp last_activity_time = 4;
+    string name = 5;
+    string conversation_image_url = 6;
+    lunarclient.common.v1.Uuid owner_uuid = 7;
+    lunarclient.websocket.conversation.v1.UserConversationState user_state = 8;
+    int32 participant_limit = 9;
+    lunarclient.websocket.conversation.v1.InvitePolicy invite_policy = 10;
+    lunarclient.websocket.conversation.v1.NamePolicy name_policy = 11;
+    lunarclient.websocket.conversation.v1.IconPolicy icon_policy = 12;
+    lunarclient.websocket.conversation.v1.MessagePinningPolicy message_pinning_policy = 13;
+    lunarclient.websocket.conversation.v1.ConversationMessage latest_message = 14;
+}
+
+message UserConversationState {
+    google.protobuf.Timestamp last_seen_time = 1;
+    int32 unread_count = 2;
+    bool pinned = 3;
+}
+
+message ConversationParticipant {
+    lunarclient.common.v1.UuidAndUsername player = 1;
+    lunarclient.common.v1.Color logo_color = 2;
+    lunarclient.common.v1.Color plus_color = 3;
+    string rank_name = 4;
+    bool is_radio_premium = 5;
+    int32 badge_id = 6;
+}
+
+message ConversationReference {
+  oneof 
+target {
+  }
+    lunarclient.common.v1.Uuid friend_uuid = 1;
+    lunarclient.common.v1.Uuid conversation_reference = 2;
+}
+
+message ConversationSender {
+  oneof 
+sender {
+  }
+    lunarclient.common.v1.UuidAndUsername player = 1;
+}
+
+message ConversationMessageContents {
+  oneof 
+contents {
+  }
+  oneof 
+_embed {
+  }
+    string plain_text = 1;
+    lunarclient.websocket.conversation.v1.LunarSticker sticker = 2;
+    lunarclient.websocket.conversation.v1.SystemMessage system = 5;
+    repeated lunarclient.websocket.conversation.v1.ConversationImage images = 3;
+    lunarclient.websocket.conversation.v1.ConversationMessageEmbed embed = 4;
+}
+
+message ConversationMessage {
+  oneof 
+_sender {
+  }
+    lunarclient.common.v1.Uuid id = 1;
+    google.protobuf.Timestamp sent_at = 2;
+    lunarclient.websocket.conversation.v1.ConversationSender sender = 3;
+    lunarclient.websocket.conversation.v1.ConversationMessageContents contents = 4;
+    lunarclient.websocket.conversation.v1.ConversationMessageKind kind = 5;
+    bool pinned = 6;
+}
+
+message SystemMessage {
+  oneof 
+event {
+  }
+  oneof 
+_actor {
+  }
+    lunarclient.websocket.conversation.v1.ConversationSender actor = 1;
+    lunarclient.websocket.conversation.v1.SystemPinnedMessageEvent pinned = 2;
+    lunarclient.websocket.conversation.v1.SystemInviteEvent invite = 3;
+    lunarclient.websocket.conversation.v1.SystemLeaveEvent leave = 4;
+    lunarclient.websocket.conversation.v1.SystemNameChangeEvent name_change = 5;
+    lunarclient.websocket.conversation.v1.SystemIconChangeEvent icon_change = 6;
+}
+
+message SystemPinnedMessageEvent {
+    lunarclient.common.v1.Uuid pinned_message_id = 1;
+}
+
+message SystemInviteEvent {
+    repeated lunarclient.common.v1.UuidAndUsername invitees = 1;
+}
+
+message SystemLeaveEvent {
+    lunarclient.common.v1.UuidAndUsername player = 1;
+}
+
+message SystemNameChangeEvent {
+    string new_name = 1;
+}
+
+message SystemIconChangeEvent {
+    string new_icon_url = 1;
+}
+
+message ConversationMessageEmbed {
+  oneof 
+embed {
+  }
+    lunarclient.websocket.conversation.v1.ImageEmbed image = 1;
+    lunarclient.websocket.conversation.v1.LinkPreviewEmbed link_preview = 2;
+    google.protobuf.Timestamp captured_at = 3;
+}
+
+message ImageEmbed {
+  oneof 
+_width {
+  }
+  oneof 
+_height {
+  }
+  oneof 
+_content_length {
+  }
+    string raw_url = 1;
+    string normalized_url = 2;
+    string proxied_url = 3;
+    string mime_type = 4;
+    uint32 width = 5;
+    uint32 height = 6;
+    uint64 content_length = 7;
+}
+
+message LinkPreviewEmbed {
+    string raw_url = 1;
+    string normalized_url = 2;
+    string proxied_url = 3;
+    string site_name = 4;
+    string title = 5;
+    string description = 6;
+    lunarclient.websocket.conversation.v1.OgImage image = 7;
+    string og_type = 8;
+    string content_type = 9;
+}
+
+message OgImage {
+  oneof 
+_width {
+  }
+  oneof 
+_height {
+  }
+    string url = 1;
+    uint32 width = 2;
+    uint32 height = 3;
+    string mime_type = 4;
+}
+
+message ConversationImage {
+    string url = 1;
+}
+
+message LunarSticker {
+    string id = 1;
+    string url = 2;
+    string name = 3;
+}
+
+message LunarStickerPack {
+    string id = 1;
+    string name = 2;
+    string icon_url = 3;
+    repeated lunarclient.websocket.conversation.v1.LunarSticker stickers = 4;
+}
+
+message LunarEmoji {
+    string id = 1;
+    string url = 2;
+    string name = 3;
+}
+
+message LunarEmojiCategory {
+    string id = 1;
+    string name = 2;
+    string icon_url = 3;
+    repeated lunarclient.websocket.conversation.v1.LunarEmoji emojis = 4;
+}
+
+message UploadRequestItem {
+    string content_type = 1;
+    uint64 expected_size_bytes = 2;
+}
+
+message PresignedUpload {
+    string upload_url = 1;
+    repeated lunarclient.websocket.conversation.v1.PresignedUpload.RequiredHeadersEntry required_headers = 2;
+    uint64 max_bytes = 3;
+    string accepted_content_type = 4;
+    google.protobuf.Timestamp expires_at = 5;
+    string finished_url = 6;
+  message RequiredHeadersEntry {
+      string key = 1;
+      string value = 2;
+  }
+}
+
+message ConversationStub {
+  oneof 
+_user_state {
+  }
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.websocket.conversation.v1.UserConversationState user_state = 2;
+}
+

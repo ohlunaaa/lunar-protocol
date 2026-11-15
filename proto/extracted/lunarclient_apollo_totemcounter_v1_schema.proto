@@ -1,0 +1,21 @@
+syntax = "proto3";
+package lunarclient.apollo.totemcounter.v1;
+
+import "lunarclient/apollo/common/v1/uuid.proto";
+
+message TotemCounter {
+    lunarclient.apollo.common.v1.Uuid player_uuid = 1;
+    int32 pops = 2;
+}
+
+message OverrideTotemCountersMessage {
+    repeated lunarclient.apollo.totemcounter.v1.TotemCounter totem_counters = 1;
+}
+
+message ResetTotemCounterMessage {
+    repeated lunarclient.apollo.common.v1.Uuid player_uuids = 1;
+}
+
+message ResetTotemCountersMessage {
+}
+

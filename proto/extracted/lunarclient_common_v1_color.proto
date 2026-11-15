@@ -1,0 +1,7 @@
+syntax = "proto3";
+package lunarclient.common.v1;
+
+message Color {
+    int32 color = 1;
+}
+

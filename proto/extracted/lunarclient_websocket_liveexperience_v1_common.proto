@@ -1,0 +1,15 @@
+syntax = "proto3";
+package lunarclient.websocket.liveexperience.v1;
+
+message LiveExperience {
+    string id = 1;
+    string name = 2;
+    string background_image = 3;
+    string foreground_image = 4;
+}
+
+message AddressAndPort {
+    string address = 1;
+    int32 port = 2;
+}
+

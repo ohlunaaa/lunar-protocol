@@ -1,0 +1,93 @@
+syntax = "proto3";
+package lunarclient.gameipc.styngr.v1;
+
+import "google/protobuf/duration.proto";
+import "lunarclient/gameipc/styngr/v1/common.proto";
+
+message FetchStateRequest {
+}
+
+message FetchStateResponse {
+    lunarclient.gameipc.styngr.v1.StyngrTrackState track = 1;
+    lunarclient.gameipc.styngr.v1.StyngrControlsState controls = 2;
+    lunarclient.gameipc.styngr.v1.StyngrProgressState progress = 3;
+}
+
+message FetchPlaylistsRequest {
+}
+
+message FetchPlaylistsResponse {
+    repeated lunarclient.gameipc.styngr.v1.FetchPlaylistsResponse.Playlist playlists = 1;
+    bool premium = 2;
+  message Playlist {
+    oneof 
+_description {
+    }
+      string id = 1;
+      string name = 2;
+      string description = 3;
+      int32 track_count = 4;
+      google.protobuf.Duration duration = 5;
+      lunarclient.gameipc.styngr.v1.PlaylistLicense license = 6;
+      lunarclient.gameipc.styngr.v1.PlaylistMonetization monetization = 7;
+  }
+}
+
+message StartPlaylistRequest {
+    lunarclient.gameipc.styngr.v1.PlaylistLicense playlist_type = 1;
+    string playlist_id = 2;
+}
+
+message StartPlaylistResponse {
+}
+
+message NextTrackRequest {
+}
+
+message NextTrackResponse {
+}
+
+message SetPlayingRequest {
+    bool playing = 1;
+}
+
+message SetPlayingResponse {
+}
+
+message SetMutedRequest {
+    bool muted = 1;
+}
+
+message SetMutedResponse {
+}
+
+message SetVolumeRequest {
+    float volume = 1;
+}
+
+message SetVolumeResponse {
+}
+
+message ToggleLikedRequest {
+}
+
+message ToggleLikedResponse {
+}
+
+message OpenSelectorRequest {
+}
+
+message OpenSelectorResponse {
+}
+
+service StyngrRadioService {
+  rpc FetchState(lunarclient.gameipc.styngr.v1.FetchStateRequest) returns (lunarclient.gameipc.styngr.v1.FetchStateResponse);
+  rpc FetchPlaylists(lunarclient.gameipc.styngr.v1.FetchPlaylistsRequest) returns (lunarclient.gameipc.styngr.v1.FetchPlaylistsResponse);
+  rpc StartPlaylist(lunarclient.gameipc.styngr.v1.StartPlaylistRequest) returns (lunarclient.gameipc.styngr.v1.StartPlaylistResponse);
+  rpc NextTrack(lunarclient.gameipc.styngr.v1.NextTrackRequest) returns (lunarclient.gameipc.styngr.v1.NextTrackResponse);
+  rpc SetPlaying(lunarclient.gameipc.styngr.v1.SetPlayingRequest) returns (lunarclient.gameipc.styngr.v1.SetPlayingResponse);
+  rpc SetMuted(lunarclient.gameipc.styngr.v1.SetMutedRequest) returns (lunarclient.gameipc.styngr.v1.SetMutedResponse);
+  rpc SetVolume(lunarclient.gameipc.styngr.v1.SetVolumeRequest) returns (lunarclient.gameipc.styngr.v1.SetVolumeResponse);
+  rpc ToggleLiked(lunarclient.gameipc.styngr.v1.ToggleLikedRequest) returns (lunarclient.gameipc.styngr.v1.ToggleLikedResponse);
+  rpc OpenSelector(lunarclient.gameipc.styngr.v1.OpenSelectorRequest) returns (lunarclient.gameipc.styngr.v1.OpenSelectorResponse);
+}

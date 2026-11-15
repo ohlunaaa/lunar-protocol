@@ -1,0 +1,14 @@
+syntax = "proto3";
+package lunarclient.websocket.protocol.v1;
+
+message WebSocketRichClosePush {
+  enum ReconnectDelay {
+    RECONNECT_DELAY_UNSPECIFIED = 0;
+    RECONNECT_DELAY_IMMEDIATE = 1;
+    RECONNECT_DELAY_NORMAL = 2;
+  }
+    lunarclient.websocket.protocol.v1.WebSocketRichClosePush.ReconnectDelay reconnect_delay = 1;
+    string reason = 2;
+    string reconnect_authenticator_jwt = 3;
+}
+

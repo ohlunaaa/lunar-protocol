@@ -1,0 +1,13 @@
+syntax = "proto3";
+package lunarclient.common.v1;
+
+message Uuid {
+    fixed64 high64 = 1;
+    fixed64 low64 = 2;
+}
+
+message UuidAndUsername {
+    lunarclient.common.v1.Uuid uuid = 1;
+    string username = 2;
+}
+

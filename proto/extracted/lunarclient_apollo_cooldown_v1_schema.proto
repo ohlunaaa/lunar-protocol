@@ -1,0 +1,28 @@
+syntax = "proto3";
+package lunarclient.apollo.cooldown.v1;
+
+import "google/protobuf/duration.proto";
+import "lunarclient/apollo/common/v1/color.proto";
+import "lunarclient/apollo/common/v1/icon.proto";
+
+message DisplayCooldownMessage {
+    string name = 1;
+    google.protobuf.Duration duration = 2;
+    lunarclient.apollo.common.v1.Icon icon = 3;
+    lunarclient.apollo.cooldown.v1.CooldownStyle style = 4;
+}
+
+message RemoveCooldownMessage {
+    string name = 1;
+}
+
+message ResetCooldownsMessage {
+}
+
+message CooldownStyle {
+    lunarclient.apollo.common.v1.Color circle_start_color = 1;
+    lunarclient.apollo.common.v1.Color circle_end_color = 2;
+    lunarclient.apollo.common.v1.Color circle_edge_color = 3;
+    lunarclient.apollo.common.v1.Color text_color = 4;
+}
+

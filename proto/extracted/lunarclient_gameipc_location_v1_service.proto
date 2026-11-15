@@ -1,0 +1,25 @@
+syntax = "proto3";
+package lunarclient.gameipc.location.v1;
+
+import "lunarclient/common/v1/location.proto";
+import "lunarclient/common/v1/inbound_location.proto";
+
+message UpdateLocationRequest {
+    lunarclient.common.v1.Location location = 1;
+    lunarclient.common.v1.InboundLocation inbound_location = 2;
+}
+
+message UpdateLocationResponse {
+}
+
+message UpdateFocusRequest {
+    bool focused = 1;
+}
+
+message UpdateFocusResponse {
+}
+
+service LocationService {
+  rpc UpdateFocus(lunarclient.gameipc.location.v1.UpdateFocusRequest) returns (lunarclient.gameipc.location.v1.UpdateFocusResponse);
+  rpc UpdateLocation(lunarclient.gameipc.location.v1.UpdateLocationRequest) returns (lunarclient.gameipc.location.v1.UpdateLocationResponse);
+}

@@ -1,0 +1,7 @@
+syntax = "proto3";
+package lunarclient.gameipc.chat.v1;
+
+message SendChatPush {
+    string message = 1;
+}
+

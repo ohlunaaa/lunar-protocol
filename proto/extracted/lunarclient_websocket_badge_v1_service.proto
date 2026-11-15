@@ -1,0 +1,26 @@
+syntax = "proto3";
+package lunarclient.websocket.badge.v1;
+
+import "lunarclient/websocket/protocol/v1/common.proto";
+import "lunarclient/websocket/badge/v1/common.proto";
+
+message LoginRequest {
+}
+
+message LoginResponse {
+    repeated lunarclient.websocket.badge.v1.OwnedBadge owned_badges = 1;
+    int32 equipped_badge_id = 2;
+    bool has_all_badges_flag = 3;
+}
+
+message EquipBadgeRequest {
+    int32 badge_id = 1;
+}
+
+message EquipBadgeResponse {
+}
+
+service BadgeService {
+  rpc Login(lunarclient.websocket.badge.v1.LoginRequest) returns (lunarclient.websocket.badge.v1.LoginResponse);
+  rpc EquipBadge(lunarclient.websocket.badge.v1.EquipBadgeRequest) returns (lunarclient.websocket.badge.v1.EquipBadgeResponse);
+}

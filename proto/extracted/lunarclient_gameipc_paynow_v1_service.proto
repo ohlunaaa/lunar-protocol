@@ -1,0 +1,34 @@
+syntax = "proto3";
+package lunarclient.gameipc.paynow.v1;
+
+message CheckPayNowCapabilitiesRequest {
+}
+
+message CheckPayNowCapabilitiesResponse {
+  enum EmbeddedCheckout {
+    EMBEDDED_CHECKOUT_UNSPECIFIED = 0;
+    EMBEDDED_CHECKOUT_OVERWOLF_OVERLAY = 1;
+    EMBEDDED_CHECKOUT_ELECTRON_WINDOW = 2;
+  }
+    lunarclient.gameipc.paynow.v1.CheckPayNowCapabilitiesResponse.EmbeddedCheckout embedded_checkout = 1;
+}
+
+message OpenPayNowJsCheckoutRequest {
+    string checkout_token = 1;
+}
+
+message OpenPayNowJsCheckoutResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_OK = 1;
+    STATUS_INTERNAL_ERROR = 2;
+    STATUS_SERVER_NOT_ALLOWED = 3;
+  }
+    lunarclient.gameipc.paynow.v1.OpenPayNowJsCheckoutResponse.Status status = 1;
+    bool open_minecraft_screen = 2;
+}
+
+service PayNowService {
+  rpc OpenPayNowJsCheckout(lunarclient.gameipc.paynow.v1.OpenPayNowJsCheckoutRequest) returns (lunarclient.gameipc.paynow.v1.OpenPayNowJsCheckoutResponse);
+  rpc CheckPayNowCapabilities(lunarclient.gameipc.paynow.v1.CheckPayNowCapabilitiesRequest) returns (lunarclient.gameipc.paynow.v1.CheckPayNowCapabilitiesResponse);
+}

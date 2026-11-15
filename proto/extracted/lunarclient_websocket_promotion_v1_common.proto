@@ -1,0 +1,38 @@
+syntax = "proto3";
+package lunarclient.websocket.promotion.v1;
+
+enum PendingRewardType {
+  PENDING_REWARD_TYPE_UNSPECIFIED = 0;
+  PENDING_REWARD_TYPE_MEDAL = 1;
+}
+message CosmeticPromotionReward {
+    int32 cosmetic_id = 1;
+}
+
+message EmotePromotionReward {
+    int32 emote_id = 1;
+}
+
+message SprayPromotionReward {
+    int32 spray_id = 1;
+}
+
+message BadgePromotionReward {
+    int32 badge_id = 1;
+}
+
+message PromotionReward {
+  oneof 
+reward {
+  }
+    lunarclient.websocket.promotion.v1.CosmeticPromotionReward cosmetic = 1;
+    lunarclient.websocket.promotion.v1.EmotePromotionReward emote = 2;
+    lunarclient.websocket.promotion.v1.SprayPromotionReward spray = 3;
+    lunarclient.websocket.promotion.v1.BadgePromotionReward badge = 4;
+}
+
+message PendingReward {
+    lunarclient.websocket.promotion.v1.PendingRewardType type = 1;
+    repeated lunarclient.websocket.promotion.v1.PromotionReward rewards = 2;
+}
+

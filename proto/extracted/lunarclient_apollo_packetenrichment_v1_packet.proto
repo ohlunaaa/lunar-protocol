@@ -1,0 +1,9 @@
+syntax = "proto3";
+package lunarclient.apollo.packetenrichment.v1;
+
+import "google/protobuf/timestamp.proto";
+
+message PacketInfo {
+    google.protobuf.Timestamp instantiation_time = 1;
+}
+

@@ -1,0 +1,163 @@
+syntax = "proto3";
+package lunarclient.websocket.performance.v1;
+
+import "lunarclient/websocket/protocol/v1/common.proto";
+
+message RecordPerfSnapshotRequest {
+  oneof 
+gpu_memory_state {
+  }
+  enum GraphicsStatus {
+    GRAPHICS_STATUS_UNSPECIFIED = 0;
+    GRAPHICS_STATUS_FANCY = 1;
+    GRAPHICS_STATUS_FAST = 2;
+    GRAPHICS_STATUS_FABULOUS = 3;
+  }
+  enum ChunkBuilder {
+    CHUNK_BUILDER_UNSPECIFIED = 0;
+    CHUNK_BUILDER_THREADED = 1;
+    CHUNK_BUILDER_SEMI_BLOCKING = 2;
+    CHUNK_BUILDER_FULLY_BLOCKING = 3;
+  }
+  enum CloudsMode {
+    CLOUDS_MODE_UNSPECIFIED = 0;
+    CLOUDS_MODE_FANCY = 1;
+    CLOUDS_MODE_FAST = 2;
+    CLOUDS_MODE_OFF = 3;
+  }
+  enum ParticlesMode {
+    PARTICLES_MODE_UNSPECIFIED = 0;
+    PARTICLES_MODE_ALL = 1;
+    PARTICLES_MODE_DECREASED = 2;
+    PARTICLES_MODE_MINIMAL = 3;
+  }
+  enum LazyChunkLoading {
+    LAZY_CHUNK_LOADING_UNSPECIFIED = 0;
+    LAZY_CHUNK_LOADING_MEDIUM = 1;
+    LAZY_CHUNK_LOADING_VANILLA = 2;
+    LAZY_CHUNK_LOADING_HIGH = 3;
+    LAZY_CHUNK_LOADING_LOW = 4;
+    LAZY_CHUNK_LOADING_LOWEST = 5;
+    LAZY_CHUNK_LOADING_HIGHEST = 6;
+  }
+  enum TextureFiltering {
+    TEXTURE_FILTERING_NONE_UNSPECIFIED = 0;
+    TEXTURE_FILTERING_RGSS = 1;
+    TEXTURE_FILTERING_ANISOTROPIC = 2;
+  }
+    int32 fps = 1;
+    int32 rendered_chunk_sections = 2;
+    int32 loaded_chunks = 3;
+    int32 rendered_entities = 4;
+    int32 rendered_players = 5;
+    int32 rendered_particles = 6;
+    int32 rendered_block_entities = 22;
+    int32 free_memory_kb = 7;
+    int32 total_memory_kb = 8;
+    int32 max_memory_kb = 9;
+    float gpu_usage = 10;
+    float frametime = 15;
+    int32 direct_memory_kb = 17;
+    int32 off_heap_memory_kb = 18;
+    int32 lunar_huds = 11;
+    int32 rendered_geckolib_cosmetics = 12;
+    int32 rendered_cosmetics = 13;
+    int32 rendered_emotes = 14;
+    int32 rendered_turbo_entities = 16;
+    int32 rendered_turbo_block_entities = 21;
+    bool using_external_shaders = 19;
+    lunarclient.websocket.performance.v1.RecordPerfSnapshotRequest.AverageGroup average_fps = 20;
+    lunarclient.websocket.performance.v1.RecordPerfSnapshotRequest.NvidiaGpuMemoryState nvidia_memory = 23;
+    lunarclient.websocket.performance.v1.RecordPerfSnapshotRequest.AmdGpuMemoryState amd_memory = 24;
+    int32 width = 25;
+    int32 height = 26;
+    bool fullscreen = 27;
+    bool vsync = 28;
+    bool smooth_lighting = 29;
+    bool entity_shadows = 30;
+    int32 max_framerate = 31;
+    lunarclient.websocket.performance.v1.RecordPerfSnapshotRequest.GraphicsStatus graphics_status = 32;
+    lunarclient.websocket.performance.v1.RecordPerfSnapshotRequest.ChunkBuilder chunk_builder = 33;
+    lunarclient.websocket.performance.v1.RecordPerfSnapshotRequest.CloudsMode clouds = 34;
+    lunarclient.websocket.performance.v1.RecordPerfSnapshotRequest.ParticlesMode particles = 35;
+    int32 render_distance = 36;
+    int32 simulated_distance = 37;
+    int32 entity_distance = 38;
+    int32 biome_blend = 39;
+    int32 fov = 40;
+    bool hud_caching = 41;
+    bool particle_physics = 42;
+    lunarclient.websocket.performance.v1.RecordPerfSnapshotRequest.LazyChunkLoading lazy_chunk_loading = 43;
+    bool turbo_entities = 44;
+    int32 turbo_entities_rate = 45;
+    bool turbo_block_entities = 46;
+    int32 turbo_block_entities_rate = 47;
+    bool turbo_block_entities_far = 48;
+    string gpu_name = 49;
+    int32 gc_cycles = 50;
+    int32 longest_gc_micro = 51;
+    int32 shortest_gc_micro = 52;
+    int32 avg_gc_micro = 53;
+    int32 median_gc_micro = 54;
+    float frame_time_average = 55;
+    float frame_time_fastest = 57;
+    float frame_time_slowest = 58;
+    string graphics_backend = 59;
+    bool sodium_present = 60;
+    lunarclient.websocket.performance.v1.RecordPerfSnapshotRequest.TextureFiltering texture_filtering = 61;
+    string processor_name = 62;
+    int32 processor_thread_count = 63;
+  message AverageGroup {
+      float average = 1;
+      int32 high = 2;
+      int32 low = 3;
+  }
+  message NvidiaGpuMemoryState {
+      int32 current_available_vram_kb = 1;
+      int32 evicted_memory_kb = 2;
+  }
+  message AmdGpuMemoryState {
+      int32 vbo_total_pool_available_kb = 1;
+      int32 vbo_largest_available_free_block_kb = 2;
+      int32 vbo_total_auxiliary_memory_free_kb = 3;
+      int32 vbo_largest_auxiliary_free_block_kb = 4;
+  }
+}
+
+message RecordPerfSnapshotResponse {
+}
+
+message StartJfrUploadRequest {
+    repeated lunarclient.websocket.performance.v1.StartJfrUploadRequest.File files = 1;
+  message File {
+      string name = 1;
+  }
+}
+
+message StartJfrUploadResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_NOT_ALLOWED = 2;
+  }
+    repeated lunarclient.websocket.performance.v1.StartJfrUploadResponse.File files = 1;
+    string upload_id = 2;
+    lunarclient.websocket.performance.v1.StartJfrUploadResponse.Status status = 3;
+  message File {
+      string name = 1;
+      string upload_url = 2;
+  }
+}
+
+message CompleteJfrUploadRequest {
+    string upload_id = 1;
+}
+
+message CompleteJfrUploadResponse {
+}
+
+service PerformanceService {
+  rpc RecordPerfSnapshot(lunarclient.websocket.performance.v1.RecordPerfSnapshotRequest) returns (lunarclient.websocket.performance.v1.RecordPerfSnapshotResponse);
+  rpc StartJfrUpload(lunarclient.websocket.performance.v1.StartJfrUploadRequest) returns (lunarclient.websocket.performance.v1.StartJfrUploadResponse);
+  rpc CompleteJfrUpload(lunarclient.websocket.performance.v1.CompleteJfrUploadRequest) returns (lunarclient.websocket.performance.v1.CompleteJfrUploadResponse);
+}

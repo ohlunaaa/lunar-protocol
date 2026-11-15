@@ -1,0 +1,19 @@
+syntax = "proto3";
+package lunarclient.apollo.packetenrichment.v1;
+
+import "lunarclient/apollo/packetenrichment/v1/packet.proto";
+import "lunarclient/apollo/packetenrichment/v1/player.proto";
+import "lunarclient/apollo/packetenrichment/v1/raytrace.proto";
+
+message PlayerUseItemMessage {
+    lunarclient.apollo.packetenrichment.v1.PacketInfo packet_info = 1;
+    lunarclient.apollo.packetenrichment.v1.PlayerInfo player_info = 2;
+    bool main_hand = 3;
+}
+
+message PlayerUseItemBucketMessage {
+    lunarclient.apollo.packetenrichment.v1.PacketInfo packet_info = 1;
+    lunarclient.apollo.packetenrichment.v1.PlayerInfo player_info = 2;
+    lunarclient.apollo.packetenrichment.v1.RayTraceResult ray_trace_result = 3;
+}
+

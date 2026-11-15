@@ -1,0 +1,57 @@
+syntax = "proto3";
+package lunarclient.gameipc.auth.v1;
+
+import "lunarclient/common/v1/uuid.proto";
+
+message OpenMicrosoftPopupRequest {
+}
+
+message OpenMicrosoftPopupResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_MATCHED_TARGET_URL = 1;
+    STATUS_CLOSED_WITH_NO_URL = 2;
+  }
+    lunarclient.gameipc.auth.v1.OpenMicrosoftPopupResponse.Status status = 1;
+    string url = 2;
+}
+
+message RefreshAccountRequest {
+    lunarclient.common.v1.Uuid uuid = 1;
+}
+
+message RefreshAccountResponse {
+  enum AccountError {
+    ACCOUNT_ERROR_UNSPECIFIED = 0;
+    ACCOUNT_ERROR_ACCOUNTS_FILE_EMPTY = 1;
+    ACCOUNT_ERROR_NOT_PURCHASED_MINECRAFT = 2;
+    ACCOUNT_ERROR_MISSING_REFRESH_TOKEN = 3;
+    ACCOUNT_ERROR_ALREADY_REFRESHING = 4;
+  }
+    bool success = 1;
+    lunarclient.gameipc.auth.v1.RefreshAccountResponse.AccountError error = 2;
+}
+
+message AddAccountRequest {
+}
+
+message AddAccountResponse {
+  enum AccountError {
+    ACCOUNT_ERROR_UNSPECIFIED = 0;
+    ACCOUNT_ERROR_NOT_PURCHASED_MINECRAFT = 1;
+  }
+    bool success = 1;
+    lunarclient.gameipc.auth.v1.AddAccountResponse.AccountError error = 2;
+}
+
+message NotifySwitchAccountRequest {
+    lunarclient.common.v1.Uuid uuid = 1;
+}
+
+message NotifySwitchAccountResponse {
+}
+
+service AuthService {
+  rpc RefreshAccount(lunarclient.gameipc.auth.v1.RefreshAccountRequest) returns (lunarclient.gameipc.auth.v1.RefreshAccountResponse);
+  rpc AddAccount(lunarclient.gameipc.auth.v1.AddAccountRequest) returns (lunarclient.gameipc.auth.v1.AddAccountResponse);
+}

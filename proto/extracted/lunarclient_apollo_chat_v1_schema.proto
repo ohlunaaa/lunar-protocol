@@ -1,0 +1,34 @@
+syntax = "proto3";
+package lunarclient.apollo.chat.v1;
+
+import "lunarclient/apollo/button/v1/button.proto";
+
+message DisplayLiveChatMessageMessage {
+    int32 message_id = 1;
+    string adventure_json_lines = 2;
+}
+
+message RemoveLiveChatMessageMessage {
+    int32 message_id = 1;
+}
+
+message ChatButton {
+    lunarclient.apollo.button.v1.Button button = 1;
+}
+
+message DisplayChatButtonsMessage {
+    repeated lunarclient.apollo.chat.v1.ChatButton chat_buttons = 1;
+}
+
+message RemoveChatButtonMessage {
+    string id = 1;
+}
+
+message ResetChatButtonsMessage {
+}
+
+message UpdateChatButtonMessage {
+    string id = 1;
+    lunarclient.apollo.button.v1.ButtonUpdate update = 2;
+}
+

@@ -1,0 +1,18 @@
+syntax = "proto3";
+package lunarclient.websocket.marker.v1;
+
+import "lunarclient/common/v1/uuid.proto";
+import "lunarclient/websocket/protocol/v1/common.proto";
+import "lunarclient/websocket/marker/v1/common.proto";
+
+message BroadcastNewMarkerRequest {
+    lunarclient.websocket.marker.v1.Marker marker = 1;
+    repeated lunarclient.common.v1.Uuid receiver_uuids = 2;
+}
+
+message BroadcastNewMarkerResponse {
+}
+
+service MarkerService {
+  rpc BroadcastNewMarker(lunarclient.websocket.marker.v1.BroadcastNewMarkerRequest) returns (lunarclient.websocket.marker.v1.BroadcastNewMarkerResponse);
+}

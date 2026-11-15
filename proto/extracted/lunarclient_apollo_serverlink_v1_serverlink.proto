@@ -1,0 +1,29 @@
+syntax = "proto3";
+package lunarclient.apollo.serverlink.v1;
+
+import "lunarclient/apollo/common/v1/icon.proto";
+
+message OverrideServerLinkResourceMessage {
+    lunarclient.apollo.common.v1.ResourceLocationIcon icon = 1;
+}
+
+message ResetServerLinkResourceMessage {
+}
+
+message AddServerLinkMessage {
+    repeated lunarclient.apollo.serverlink.v1.ServerLink server_links = 1;
+}
+
+message RemoveServerLinkMessage {
+    repeated string server_link_ids = 1;
+}
+
+message ResetServerLinksMessage {
+}
+
+message ServerLink {
+    string id = 1;
+    string display_name_adventure_json_lines = 2;
+    string url = 3;
+}
+

@@ -1,0 +1,13 @@
+syntax = "proto3";
+package lunarclient.common.v1;
+
+enum MinecraftSkinModel {
+  MINECRAFT_SKIN_MODEL_UNSPECIFIED = 0;
+  MINECRAFT_SKIN_MODEL_CLASSIC = 1;
+  MINECRAFT_SKIN_MODEL_SLIM = 2;
+}
+message MinecraftSkin {
+    string texture_id = 1;
+    lunarclient.common.v1.MinecraftSkinModel model = 2;
+}
+

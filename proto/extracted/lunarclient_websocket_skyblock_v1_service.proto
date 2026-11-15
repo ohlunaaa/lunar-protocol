@@ -1,0 +1,16 @@
+syntax = "proto3";
+package lunarclient.websocket.skyblock.v1;
+
+import "lunarclient/websocket/protocol/v1/common.proto";
+import "lunarclient/websocket/skyblock/v1/common.proto";
+
+message BroadcastDungeonUpdateRequest {
+    lunarclient.websocket.skyblock.v1.DungeonUpdate update = 1;
+}
+
+message BroadcastDungeonUpdateResponse {
+}
+
+service SkyblockService {
+  rpc BroadcastDungeonUpdate(lunarclient.websocket.skyblock.v1.BroadcastDungeonUpdateRequest) returns (lunarclient.websocket.skyblock.v1.BroadcastDungeonUpdateResponse);
+}

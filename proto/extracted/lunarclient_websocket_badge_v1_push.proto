@@ -1,0 +1,6 @@
+syntax = "proto3";
+package lunarclient.websocket.badge.v1;
+
+message RefreshBadgesPush {
+}
+

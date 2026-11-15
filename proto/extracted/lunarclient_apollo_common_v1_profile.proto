@@ -1,0 +1,11 @@
+syntax = "proto3";
+package lunarclient.apollo.common.v1;
+
+import "lunarclient/apollo/common/v1/uuid.proto";
+
+message Profile {
+    lunarclient.apollo.common.v1.Uuid id = 1;
+    string texture = 2;
+    string signature = 3;
+}
+

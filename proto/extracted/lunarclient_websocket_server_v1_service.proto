@@ -1,0 +1,57 @@
+syntax = "proto3";
+package lunarclient.websocket.server.v1;
+
+import "lunarclient/websocket/protocol/v1/common.proto";
+import "lunarclient/websocket/server/v1/common.proto";
+
+message GetPlayerCountsRequest {
+    repeated string server_ids = 1;
+}
+
+message GetPlayerCountsResponse {
+    repeated lunarclient.websocket.server.v1.GetPlayerCountsResponse.Server servers = 1;
+  message Server {
+    enum Status {
+      STATUS_UNSPECIFIED = 0;
+      STATUS_ONLINE = 1;
+      STATUS_OFFLINE = 2;
+    }
+      string server_id = 1;
+      lunarclient.websocket.server.v1.GetPlayerCountsResponse.Server.Status status = 2;
+      int32 online_count = 3;
+      int32 max_count = 4;
+  }
+}
+
+message CheckServerRecommendationsRequest {
+    string server_ip = 1;
+}
+
+message CheckServerRecommendationsResponse {
+    lunarclient.websocket.server.v1.ServerRecommendations recommendations = 1;
+}
+
+message GetServerRecommendationsRequest {
+}
+
+message GetServerRecommendationsResponse {
+    repeated lunarclient.websocket.server.v1.ServerRecommendations recommendations = 1;
+}
+
+message CheckAuthorizedFeaturesRequest {
+    string server_ip = 1;
+}
+
+message CheckAuthorizedFeaturesResponse {
+    repeated string scopes = 1;
+    repeated int32 associated_cosmetic_ids = 2;
+    repeated int32 associated_emote_ids = 3;
+    repeated int32 associated_spray_ids = 4;
+}
+
+service ServerService {
+  rpc GetPlayerCounts(lunarclient.websocket.server.v1.GetPlayerCountsRequest) returns (lunarclient.websocket.server.v1.GetPlayerCountsResponse);
+  rpc CheckServerRecommendations(lunarclient.websocket.server.v1.CheckServerRecommendationsRequest) returns (lunarclient.websocket.server.v1.CheckServerRecommendationsResponse);
+  rpc GetServerRecommendations(lunarclient.websocket.server.v1.GetServerRecommendationsRequest) returns (lunarclient.websocket.server.v1.GetServerRecommendationsResponse);
+  rpc CheckAuthorizedFeatures(lunarclient.websocket.server.v1.CheckAuthorizedFeaturesRequest) returns (lunarclient.websocket.server.v1.CheckAuthorizedFeaturesResponse);
+}

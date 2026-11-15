@@ -1,0 +1,10 @@
+syntax = "proto3";
+package lunarclient.apollo.common.v1;
+
+import "lunarclient/apollo/common/v1/uuid.proto";
+
+message EntityId {
+    int32 entity_id = 1;
+    lunarclient.apollo.common.v1.Uuid entity_uuid = 2;
+}
+

@@ -1,0 +1,76 @@
+syntax = "proto3";
+package lunarclient.websocket.serverdiscovery.v1;
+
+import "lunarclient/websocket/protocol/v1/common.proto";
+import "lunarclient/websocket/serverdiscovery/v1/common.proto";
+
+message LoginRequest {
+}
+
+message LoginResponse {
+    int32 total_servers = 1;
+    lunarclient.websocket.serverdiscovery.v1.GlobalAnnouncement announcement = 2;
+    repeated lunarclient.websocket.serverdiscovery.v1.ServerGameType game_types = 3;
+}
+
+message DiscoverServersRequest {
+}
+
+message DiscoverServersResponse {
+    repeated lunarclient.websocket.serverdiscovery.v1.ServerSection sections = 1;
+}
+
+message SearchServersRequest {
+    string query = 1;
+}
+
+message SearchServersResponse {
+    repeated lunarclient.websocket.serverdiscovery.v1.ServerCard servers = 1;
+}
+
+message LoadAutocompleteSuggestionsRequest {
+}
+
+message LoadAutocompleteSuggestionsResponse {
+    repeated lunarclient.websocket.serverdiscovery.v1.AutocompleteSuggestion suggestions = 1;
+}
+
+message AutocompleteSuggestion {
+    string name = 1;
+    string primary_address = 2;
+    repeated string addresses = 3;
+}
+
+message LoadServerModalRequest {
+    string server_mappings_id = 1;
+}
+
+message LoadServerModalResponse {
+    lunarclient.websocket.serverdiscovery.v1.ServerModalDetails details = 1;
+}
+
+message TrackSectionNotInterestedRequest {
+    string id = 1;
+}
+
+message TrackSectionNotInterestedResponse {
+}
+
+message TrackServerJoinRequest {
+    string section_id = 1;
+    string card_server_mappings_id = 2;
+    string card_recommendation_id = 3;
+}
+
+message TrackServerJoinResponse {
+}
+
+service ServerDiscoveryService {
+  rpc Login(lunarclient.websocket.serverdiscovery.v1.LoginRequest) returns (lunarclient.websocket.serverdiscovery.v1.LoginResponse);
+  rpc DiscoverServers(lunarclient.websocket.serverdiscovery.v1.DiscoverServersRequest) returns (lunarclient.websocket.serverdiscovery.v1.DiscoverServersResponse);
+  rpc SearchServers(lunarclient.websocket.serverdiscovery.v1.SearchServersRequest) returns (lunarclient.websocket.serverdiscovery.v1.SearchServersResponse);
+  rpc LoadAutocompleteSuggestions(lunarclient.websocket.serverdiscovery.v1.LoadAutocompleteSuggestionsRequest) returns (lunarclient.websocket.serverdiscovery.v1.LoadAutocompleteSuggestionsResponse);
+  rpc LoadServerModal(lunarclient.websocket.serverdiscovery.v1.LoadServerModalRequest) returns (lunarclient.websocket.serverdiscovery.v1.LoadServerModalResponse);
+  rpc TrackSectionNotInterested(lunarclient.websocket.serverdiscovery.v1.TrackSectionNotInterestedRequest) returns (lunarclient.websocket.serverdiscovery.v1.TrackSectionNotInterestedResponse);
+  rpc TrackServerJoin(lunarclient.websocket.serverdiscovery.v1.TrackServerJoinRequest) returns (lunarclient.websocket.serverdiscovery.v1.TrackServerJoinResponse);
+}

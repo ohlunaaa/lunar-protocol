@@ -1,0 +1,28 @@
+syntax = "proto3";
+package lunarclient.websocket.paynow.v1;
+
+import "lunarclient/websocket/protocol/v1/common.proto";
+
+message PayNowCheckoutOpenedRequest {
+  enum Backend {
+    BACKEND_UNSPECIFIED = 0;
+    BACKEND_OVERWOLF_OVERLAY = 1;
+    BACKEND_ELECTRON_WINDOW = 2;
+  }
+    string checkout_token = 1;
+    lunarclient.websocket.paynow.v1.PayNowCheckoutOpenedRequest.Backend backend = 2;
+}
+
+message PayNowCheckoutOpenedResponse {
+}
+
+message PayNowCheckoutClosedRequest {
+}
+
+message PayNowCheckoutClosedResponse {
+}
+
+service PayNowService {
+  rpc PayNowCheckoutOpened(lunarclient.websocket.paynow.v1.PayNowCheckoutOpenedRequest) returns (lunarclient.websocket.paynow.v1.PayNowCheckoutOpenedResponse);
+  rpc PayNowCheckoutClosed(lunarclient.websocket.paynow.v1.PayNowCheckoutClosedRequest) returns (lunarclient.websocket.paynow.v1.PayNowCheckoutClosedResponse);
+}

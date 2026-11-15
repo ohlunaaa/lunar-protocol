@@ -1,0 +1,28 @@
+syntax = "proto3";
+package lunarclient.websocket.subscription.v1;
+
+import "lunarclient/common/v1/uuid.proto";
+import "lunarclient/websocket/protocol/v1/common.proto";
+import "lunarclient/websocket/cosmetic/v2/push.proto";
+import "lunarclient/websocket/radio/v1/push.proto";
+
+message SubscribeV2Request {
+    repeated lunarclient.common.v1.Uuid target_uuids = 1;
+}
+
+message SubscribeV2Response {
+    repeated lunarclient.websocket.cosmetic.v2.PlayerCosmeticsPushV2 cosmetic_pushes = 1;
+    repeated lunarclient.websocket.radio.v1.PlayerRadioPush radio_pushes = 2;
+}
+
+message UnsubscribeRequest {
+    repeated lunarclient.common.v1.Uuid target_uuids = 1;
+}
+
+message UnsubscribeResponse {
+}
+
+service SubscriptionService {
+  rpc SubscribeV2(lunarclient.websocket.subscription.v1.SubscribeV2Request) returns (lunarclient.websocket.subscription.v1.SubscribeV2Response);
+  rpc Unsubscribe(lunarclient.websocket.subscription.v1.UnsubscribeRequest) returns (lunarclient.websocket.subscription.v1.UnsubscribeResponse);
+}

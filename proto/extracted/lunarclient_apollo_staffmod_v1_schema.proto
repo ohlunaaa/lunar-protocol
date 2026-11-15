@@ -1,0 +1,18 @@
+syntax = "proto3";
+package lunarclient.apollo.staffmod.v1;
+
+enum StaffMod {
+  STAFF_MOD_UNSPECIFIED = 0;
+  STAFF_MOD_XRAY = 1;
+  STAFF_MOD_BHOP = 2;
+  STAFF_MOD_NAMETAGS = 3;
+}
+message EnableStaffModsMessage {
+    repeated lunarclient.apollo.staffmod.v1.StaffMod staff_mods = 1;
+    bool enabled_by_default = 2;
+}
+
+message DisableStaffModsMessage {
+    repeated lunarclient.apollo.staffmod.v1.StaffMod staff_mods = 1;
+}
+

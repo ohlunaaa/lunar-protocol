@@ -1,0 +1,32 @@
+syntax = "proto3";
+package lunarclient.websocket.wrapped.v1;
+
+import "lunarclient/websocket/protocol/v1/common.proto";
+import "lunarclient/websocket/wrapped/v1/common.proto";
+
+message RecordCountersRequest {
+    repeated lunarclient.websocket.wrapped.v1.CounterUpdate updates = 1;
+}
+
+message RecordCountersResponse {
+}
+
+message LoginRequest {
+}
+
+message LoginResponse {
+    lunarclient.websocket.wrapped.v1.WrappedLeaderboardVisibility leaderboard_visibility = 1;
+}
+
+message SetLeaderboardVisibilityRequest {
+    lunarclient.websocket.wrapped.v1.WrappedLeaderboardVisibility leaderboard_visibility = 1;
+}
+
+message SetLeaderboardVisibilityResponse {
+}
+
+service WrappedService {
+  rpc Login(lunarclient.websocket.wrapped.v1.LoginRequest) returns (lunarclient.websocket.wrapped.v1.LoginResponse);
+  rpc RecordCounters(lunarclient.websocket.wrapped.v1.RecordCountersRequest) returns (lunarclient.websocket.wrapped.v1.RecordCountersResponse);
+  rpc SetLeaderboardVisibility(lunarclient.websocket.wrapped.v1.SetLeaderboardVisibilityRequest) returns (lunarclient.websocket.wrapped.v1.SetLeaderboardVisibilityResponse);
+}

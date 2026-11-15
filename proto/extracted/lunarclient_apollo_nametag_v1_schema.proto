@@ -1,0 +1,25 @@
+syntax = "proto3";
+package lunarclient.apollo.nametag.v1;
+
+import "lunarclient/apollo/common/v1/component.proto";
+import "lunarclient/apollo/common/v1/uuid.proto";
+
+enum NametagVisibilityOverride {
+  NAMETAG_VISIBILITY_OVERRIDE_UNSPECIFIED = 0;
+  NAMETAG_VISIBILITY_OVERRIDE_NONE = 1;
+  NAMETAG_VISIBILITY_OVERRIDE_SHOWN = 2;
+  NAMETAG_VISIBILITY_OVERRIDE_HIDDEN = 3;
+}
+message OverrideNametagMessage {
+    lunarclient.apollo.common.v1.Uuid player_uuid = 1;
+    repeated string adventure_json_lines = 3;
+    lunarclient.apollo.nametag.v1.NametagVisibilityOverride visibility_override = 4;
+}
+
+message ResetNametagMessage {
+    lunarclient.apollo.common.v1.Uuid player_uuid = 1;
+}
+
+message ResetNametagsMessage {
+}
+

@@ -1,0 +1,38 @@
+syntax = "proto3";
+package lunarclient.apollo.packetenrichment.v1;
+
+import "lunarclient/apollo/common/v1/entityid.proto";
+import "lunarclient/apollo/common/v1/location.proto";
+
+enum Direction {
+  DIRECTION_UNSPECIFIED = 0;
+  DIRECTION_DOWN = 1;
+  DIRECTION_UP = 2;
+  DIRECTION_NORTH = 3;
+  DIRECTION_SOUTH = 4;
+  DIRECTION_WEST = 5;
+  DIRECTION_EAST = 6;
+}
+message RayTraceResult {
+  oneof 
+hit {
+  }
+    lunarclient.apollo.packetenrichment.v1.BlockHit block = 1;
+    lunarclient.apollo.packetenrichment.v1.EntityHit entity = 2;
+    lunarclient.apollo.packetenrichment.v1.Miss miss = 3;
+}
+
+message BlockHit {
+    lunarclient.apollo.common.v1.Location hit_location = 1;
+    lunarclient.apollo.common.v1.BlockLocation block_location = 2;
+    lunarclient.apollo.packetenrichment.v1.Direction direction = 3;
+}
+
+message EntityHit {
+    lunarclient.apollo.common.v1.Location hit_location = 1;
+    lunarclient.apollo.common.v1.EntityId entity_id = 2;
+}
+
+message Miss {
+}
+

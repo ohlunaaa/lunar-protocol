@@ -1,0 +1,18 @@
+syntax = "proto3";
+package lunarclient.websocket.badge.v1;
+
+import "google/protobuf/timestamp.proto";
+
+message OwnedBadge {
+  enum ExpirationReason {
+    EXPIRATION_REASON_UNSPECIFIED = 0;
+    EXPIRATION_REASON_TIME_LAPSED = 1;
+    EXPIRATION_REASON_LEFT_LC_DISCORD = 2;
+  }
+    int32 badge_id = 1;
+    google.protobuf.Timestamp granted_at = 2;
+    google.protobuf.Timestamp expires_at = 3;
+    lunarclient.websocket.badge.v1.OwnedBadge.ExpirationReason expiration_reason = 4;
+    bool is_lunar_plus = 6;
+}
+

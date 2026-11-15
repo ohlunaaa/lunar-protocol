@@ -1,0 +1,16 @@
+syntax = "proto3";
+package lunarclient.apollo.packetenrichment.v1;
+
+import "lunarclient/apollo/packetenrichment/v1/packet.proto";
+import "lunarclient/apollo/packetenrichment/v1/player.proto";
+
+message PlayerChatOpenMessage {
+    lunarclient.apollo.packetenrichment.v1.PlayerInfo player_info = 1;
+    lunarclient.apollo.packetenrichment.v1.PacketInfo packet_info = 2;
+}
+
+message PlayerChatCloseMessage {
+    lunarclient.apollo.packetenrichment.v1.PlayerInfo player_info = 1;
+    lunarclient.apollo.packetenrichment.v1.PacketInfo packet_info = 2;
+}
+

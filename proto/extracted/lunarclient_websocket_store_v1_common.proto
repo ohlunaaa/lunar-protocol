@@ -1,0 +1,9 @@
+syntax = "proto3";
+package lunarclient.websocket.store.v1;
+
+enum IncomingGiftPrivacy {
+  INCOMING_GIFT_PRIVACY_UNSPECIFIED = 0;
+  INCOMING_GIFT_PRIVACY_EVERYONE = 1;
+  INCOMING_GIFT_PRIVACY_FRIENDS = 2;
+  INCOMING_GIFT_PRIVACY_NOONE = 3;
+}

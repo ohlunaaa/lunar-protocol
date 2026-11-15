@@ -1,0 +1,112 @@
+syntax = "proto3";
+package lunarclient.websocket.promotion.v1;
+
+import "lunarclient/websocket/promotion/v1/common.proto";
+import "lunarclient/websocket/protocol/v1/common.proto";
+
+message LoginRequest {
+}
+
+message LoginResponse {
+  enum OutplayedPromotionState {
+    OUTPLAYED_PROMOTION_STATE_UNSPECIFIED = 0;
+    OUTPLAYED_PROMOTION_STATE_UNAVAILABLE = 1;
+    OUTPLAYED_PROMOTION_STATE_AVAILABLE = 2;
+    OUTPLAYED_PROMOTION_STATE_CLAIMED = 3;
+  }
+  enum MedalPromotionState {
+    MEDAL_PROMOTION_STATE_UNSPECIFIED = 0;
+    MEDAL_PROMOTION_STATE_UNAVAILABLE = 1;
+    MEDAL_PROMOTION_STATE_AVAILABLE = 2;
+    MEDAL_PROMOTION_STATE_CLAIMED = 3;
+  }
+    bool show_ads = 2;
+    lunarclient.websocket.promotion.v1.LoginResponse.OutplayedPromotionState outplayed_promotion_state = 3;
+    repeated lunarclient.websocket.promotion.v1.PendingReward pending_rewards = 4;
+    lunarclient.websocket.promotion.v1.LoginResponse.MedalPromotionState medal_promotion_state = 5;
+}
+
+message StartPromotionViewRequest {
+    string promotion_id = 1;
+}
+
+message StartPromotionViewResponse {
+}
+
+message EndPromotionViewRequest {
+    string promotion_id = 1;
+    bool completed = 2;
+}
+
+message EndPromotionViewResponse {
+    repeated lunarclient.websocket.promotion.v1.PromotionReward rewards = 1;
+}
+
+message ClaimOutplayedRewardRequest {
+  enum Initiator {
+    INITIATOR_UNSPECIFIED = 0;
+    INITIATOR_TOPBAR = 1;
+    INITIATOR_SIDEBAR = 2;
+    INITIATOR_HOME_BLOG_POST = 3;
+    INITIATOR_ANNOUNCEMENT = 4;
+    INITIATOR_HOME_CAROUSEL_CTA = 5;
+    INITIATOR_GAME_HOME_CTA = 6;
+  }
+    lunarclient.websocket.promotion.v1.ClaimOutplayedRewardRequest.Initiator initiator = 1;
+}
+
+message ClaimOutplayedRewardResponse {
+  enum Result {
+    RESULT_UNSPECIFIED = 0;
+    RESULT_SUCCESS = 1;
+    RESULT_PLAYER_ALREADY_CLAIMED = 2;
+    RESULT_OUTPLAYED_INSTALL_ALREADY_CLAIMED = 3;
+    RESULT_NOT_WINDOWS = 4;
+    RESULT_OUTPLAYED_NOT_INSTALLED = 5;
+  }
+    lunarclient.websocket.promotion.v1.ClaimOutplayedRewardResponse.Result result = 1;
+}
+
+message ClaimRewindPuzzleRewardRequest {
+    string solution = 1;
+}
+
+message ClaimRewindPuzzleRewardResponse {
+  enum Result {
+    RESULT_UNSPECIFIED = 0;
+    RESULT_SUCCESS = 1;
+    RESULT_INCORRECT_SOLUTION = 2;
+    RESULT_PLAYER_ALREADY_CLAIMED = 3;
+    RESULT_MAX_REWARDS_EXCEEDED = 4;
+  }
+    lunarclient.websocket.promotion.v1.ClaimRewindPuzzleRewardResponse.Result result = 1;
+}
+
+message ClaimPendingRewardRequest {
+  enum Initiator {
+    INITIATOR_UNSPECIFIED = 0;
+    INITIATOR_GAME_HOME = 1;
+  }
+    lunarclient.websocket.promotion.v1.ClaimPendingRewardRequest.Initiator initiator = 1;
+    lunarclient.websocket.promotion.v1.PendingRewardType type = 2;
+    lunarclient.websocket.promotion.v1.PromotionReward reward = 3;
+}
+
+message ClaimPendingRewardResponse {
+  enum Result {
+    RESULT_UNSPECIFIED = 0;
+    RESULT_SUCCESS = 1;
+    RESULT_PLAYER_ALREADY_OWNED = 2;
+    RESULT_PLAYER_ALREADY_CLAIMED = 3;
+  }
+    lunarclient.websocket.promotion.v1.ClaimPendingRewardResponse.Result result = 1;
+}
+
+service PromotionService {
+  rpc Login(lunarclient.websocket.promotion.v1.LoginRequest) returns (lunarclient.websocket.promotion.v1.LoginResponse);
+  rpc StartPromotionView(lunarclient.websocket.promotion.v1.StartPromotionViewRequest) returns (lunarclient.websocket.promotion.v1.StartPromotionViewResponse);
+  rpc EndPromotionView(lunarclient.websocket.promotion.v1.EndPromotionViewRequest) returns (lunarclient.websocket.promotion.v1.EndPromotionViewResponse);
+  rpc ClaimOutplayedReward(lunarclient.websocket.promotion.v1.ClaimOutplayedRewardRequest) returns (lunarclient.websocket.promotion.v1.ClaimOutplayedRewardResponse);
+  rpc ClaimRewindPuzzleReward(lunarclient.websocket.promotion.v1.ClaimRewindPuzzleRewardRequest) returns (lunarclient.websocket.promotion.v1.ClaimRewindPuzzleRewardResponse);
+  rpc ClaimPendingReward(lunarclient.websocket.promotion.v1.ClaimPendingRewardRequest) returns (lunarclient.websocket.promotion.v1.ClaimPendingRewardResponse);
+}

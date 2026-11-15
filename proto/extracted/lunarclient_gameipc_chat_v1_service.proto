@@ -1,0 +1,16 @@
+syntax = "proto3";
+package lunarclient.gameipc.chat.v1;
+
+import "lunarclient/common/v1/uuid.proto";
+
+message ReceiveMessageRequest {
+    lunarclient.common.v1.UuidAndUsername sender = 1;
+    string content = 2;
+}
+
+message ReceiveMessageResponse {
+}
+
+service ChatService {
+  rpc ReceiveMessage(lunarclient.gameipc.chat.v1.ReceiveMessageRequest) returns (lunarclient.gameipc.chat.v1.ReceiveMessageResponse);
+}

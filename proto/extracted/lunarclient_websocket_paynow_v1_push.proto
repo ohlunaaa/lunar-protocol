@@ -1,0 +1,7 @@
+syntax = "proto3";
+package lunarclient.websocket.paynow.v1;
+
+message OpenPayNowCheckoutPush {
+    string checkout_token = 1;
+}
+

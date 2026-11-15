@@ -1,0 +1,13 @@
+syntax = "proto3";
+package lunarclient.websocket.radio.v1;
+
+import "lunarclient/common/v1/uuid.proto";
+
+message PlayerRadioPush {
+    lunarclient.common.v1.Uuid player_uuid = 1;
+    bool radio_playing = 2;
+}
+
+message RefreshRadioPush {
+}
+

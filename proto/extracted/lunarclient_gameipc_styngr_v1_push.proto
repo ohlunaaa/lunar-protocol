@@ -1,0 +1,23 @@
+syntax = "proto3";
+package lunarclient.gameipc.styngr.v1;
+
+import "lunarclient/gameipc/styngr/v1/common.proto";
+
+message StyngrTrackControlsUpdate {
+    bool playing = 1;
+    bool muted = 2;
+    float volume = 3;
+}
+
+message StyngrTrackProgressUpdate {
+    float duration = 1;
+    float position = 2;
+}
+
+message StyngrTrackUpdate {
+  oneof 
+_track {
+  }
+    lunarclient.gameipc.styngr.v1.StyngrTrackState track = 1;
+}
+

@@ -1,0 +1,12 @@
+syntax = "proto3";
+package lunarclient.gameipc.store.v1;
+
+message StartStorePreviewSessionPush {
+  oneof 
+_package_id {
+  }
+    string basket_ident = 1;
+    string currency = 3;
+    int32 package_id = 2;
+}
+

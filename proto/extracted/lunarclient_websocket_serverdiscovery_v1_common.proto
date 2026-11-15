@@ -1,0 +1,77 @@
+syntax = "proto3";
+package lunarclient.websocket.serverdiscovery.v1;
+
+import "google/protobuf/timestamp.proto";
+import "lunarclient/common/v1/color.proto";
+import "lunarclient/common/v1/modpack.proto";
+
+message ServerSection {
+  enum CardSize {
+    CARD_SIZE_UNSPECIFIED = 0;
+    CARD_SIZE_SMALL = 1;
+    CARD_SIZE_MEDIUM = 2;
+    CARD_SIZE_LARGE = 3;
+  }
+    string id = 1;
+    string name = 2;
+    string emoji = 3;
+    bool show_not_interested = 4;
+    lunarclient.websocket.serverdiscovery.v1.ServerSection.CardSize card_size = 5;
+    repeated lunarclient.websocket.serverdiscovery.v1.ServerCard cards = 6;
+    string description = 7;
+}
+
+message ServerCard {
+  enum Badge {
+    BADGE_UNSPECIFIED = 0;
+    BADGE_LUNAR_CLIENT_PARTNER = 1;
+    BADGE_FEATURED = 2;
+    BADGE_OFFICIAL = 3;
+  }
+    string recommendation_id = 1;
+    string server_mappings_id = 11;
+    string name = 2;
+    string logo_url = 4;
+    string background_url = 5;
+    lunarclient.common.v1.Color primary_color = 6;
+    string primary_address = 7;
+    lunarclient.websocket.serverdiscovery.v1.ServerCard.Badge badge = 8;
+    google.protobuf.Timestamp last_joined = 9;
+    lunarclient.websocket.serverdiscovery.v1.Announcement announcement = 12;
+    repeated string region_codes = 13;
+    repeated lunarclient.websocket.serverdiscovery.v1.ServerGameType game_types = 14;
+}
+
+message Announcement {
+  oneof 
+timer {
+  }
+    string text = 1;
+    google.protobuf.Timestamp count_down_to = 2;
+    google.protobuf.Timestamp count_up_from = 3;
+}
+
+message GlobalAnnouncement {
+    lunarclient.websocket.serverdiscovery.v1.Announcement announcement = 1;
+    lunarclient.websocket.serverdiscovery.v1.ServerCard server = 2;
+}
+
+message ServerModalDetails {
+    string description = 1;
+    string twitter = 2;
+    string discord = 3;
+    string youtube = 4;
+    string instagram = 5;
+    string twitch = 6;
+    string telegram = 7;
+    string reddit = 8;
+    string tiktok = 9;
+    string facebook = 10;
+    lunarclient.common.v1.PlayerModpack modpack = 11;
+}
+
+message ServerGameType {
+    string name = 1;
+    string emoji = 2;
+}
+

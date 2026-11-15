@@ -1,0 +1,39 @@
+syntax = "proto3";
+package lunarclient.apollo.transfer.v1;
+
+message PingData {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_TIMED_OUT = 2;
+  }
+    string server_ip = 1;
+    lunarclient.apollo.transfer.v1.PingData.Status status = 2;
+    int32 ping = 3;
+}
+
+message PingRequest {
+    bytes request_id = 1;
+    repeated string server_ips = 2;
+}
+
+message PingResponse {
+    bytes request_id = 1;
+    repeated lunarclient.apollo.transfer.v1.PingData ping_data = 2;
+}
+
+message TransferRequest {
+    bytes request_id = 1;
+    string server_ip = 2;
+}
+
+message TransferResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_ACCEPTED = 1;
+    STATUS_REJECTED = 2;
+  }
+    bytes request_id = 1;
+    lunarclient.apollo.transfer.v1.TransferResponse.Status status = 2;
+}
+

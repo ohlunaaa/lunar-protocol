@@ -1,0 +1,18 @@
+syntax = "proto3";
+package lunarclient.websocket.spray.v1;
+
+import "google/protobuf/timestamp.proto";
+import "lunarclient/common/v1/gift.proto";
+
+message OwnedSpray {
+    int32 spray_id = 1;
+    google.protobuf.Timestamp granted_at = 2;
+    google.protobuf.Timestamp expires_at = 3;
+    lunarclient.common.v1.GiftInfo gift_info = 4;
+}
+
+message EquippedSpray {
+    int32 spray_id = 1;
+    int32 slot_number = 2;
+}
+

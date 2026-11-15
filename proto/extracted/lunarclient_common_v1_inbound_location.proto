@@ -1,0 +1,63 @@
+syntax = "proto3";
+package lunarclient.common.v1;
+
+import "lunarclient/common/v1/location.proto";
+import "lunarclient/common/v1/modpack.proto";
+import "lunarclient/common/v1/uuid.proto";
+import "lunarclient/common/v1/version.proto";
+
+message InboundServer {
+    string server_ip = 1;
+    lunarclient.common.v1.ServerRichStatus rich_status = 2;
+}
+
+message InboundSinglePlayer {
+}
+
+message InboundMinecraftRealms {
+}
+
+message InboundInMenus {
+}
+
+message InboundInLauncher {
+}
+
+message InboundHostedWorld {
+    lunarclient.common.v1.Uuid world_host = 1;
+}
+
+message InboundReplayWorld {
+}
+
+message InboundRewindWorld {
+  enum RewindWorldType {
+    REWIND_WORLD_TYPE_UNSPECIFIED = 0;
+    REWIND_WORLD_TYPE_PROJECT = 1;
+    REWIND_WORLD_TYPE_PREVIEW = 2;
+  }
+    lunarclient.common.v1.InboundRewindWorld.RewindWorldType type = 1;
+}
+
+message InboundInGame {
+    lunarclient.common.v1.MinecraftVersion minecraft_version = 1;
+    bool is_launch = 2;
+    lunarclient.common.v1.PlayerModpack modpack = 3;
+    bool is_badlion = 4;
+}
+
+message InboundLocation {
+  oneof 
+location {
+  }
+    lunarclient.common.v1.InboundServer server = 1;
+    lunarclient.common.v1.InboundSinglePlayer single_player = 2;
+    lunarclient.common.v1.InboundMinecraftRealms minecraft_realms = 3;
+    lunarclient.common.v1.InboundInMenus in_menus = 4;
+    lunarclient.common.v1.InboundInLauncher in_launcher = 5;
+    lunarclient.common.v1.InboundHostedWorld hosted_world = 6;
+    lunarclient.common.v1.InboundReplayWorld replay_world = 7;
+    lunarclient.common.v1.InboundInGame in_game = 8;
+    lunarclient.common.v1.InboundRewindWorld rewind_world = 9;
+}
+

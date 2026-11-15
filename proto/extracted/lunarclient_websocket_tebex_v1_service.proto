@@ -1,0 +1,29 @@
+syntax = "proto3";
+package lunarclient.websocket.tebex.v1;
+
+import "lunarclient/websocket/protocol/v1/common.proto";
+
+message TebexJsCheckoutOpenedRequest {
+  enum Backend {
+    BACKEND_UNSPECIFIED = 0;
+    BACKEND_OVERWOLF_OVERLAY = 1;
+    BACKEND_ELECTRON_WINDOW = 2;
+  }
+    string basket_ident = 1;
+    lunarclient.websocket.tebex.v1.TebexJsCheckoutOpenedRequest.Backend backend = 2;
+    string locale = 3;
+}
+
+message TebexJsCheckoutOpenedResponse {
+}
+
+message TebexJsCheckoutClosedRequest {
+}
+
+message TebexJsCheckoutClosedResponse {
+}
+
+service TebexService {
+  rpc TebexJsCheckoutOpened(lunarclient.websocket.tebex.v1.TebexJsCheckoutOpenedRequest) returns (lunarclient.websocket.tebex.v1.TebexJsCheckoutOpenedResponse);
+  rpc TebexJsCheckoutClosed(lunarclient.websocket.tebex.v1.TebexJsCheckoutClosedRequest) returns (lunarclient.websocket.tebex.v1.TebexJsCheckoutClosedResponse);
+}

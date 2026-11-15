@@ -1,0 +1,8 @@
+syntax = "proto3";
+package lunarclient.apollo.tebex.v1;
+
+message OpenTebexEmbeddedCheckoutMessage {
+    string basket_ident = 1;
+    string locale = 2;
+}
+

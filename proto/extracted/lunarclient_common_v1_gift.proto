@@ -1,0 +1,18 @@
+syntax = "proto3";
+package lunarclient.common.v1;
+
+import "lunarclient/common/v1/uuid.proto";
+
+message GiftInfo {
+  oneof 
+
+_gifted_by {
+  }
+  oneof 
+_message {
+  }
+    lunarclient.common.v1.UuidAndUsername gifted_by = 1;
+    string message = 2;
+    bool is_anonymous = 3;
+}
+

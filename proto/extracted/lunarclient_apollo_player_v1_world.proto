@@ -1,0 +1,7 @@
+syntax = "proto3";
+package lunarclient.apollo.player.v1;
+
+message UpdatePlayerWorldMessage {
+    string world = 1;
+}
+

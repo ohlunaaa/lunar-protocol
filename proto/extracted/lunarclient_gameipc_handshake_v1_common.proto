@@ -1,0 +1,9 @@
+syntax = "proto3";
+package lunarclient.gameipc.handshake.v1;
+
+message Handshake {
+    string launch_id = 1;
+    string process_id = 2;
+    string installation_id = 3;
+}
+

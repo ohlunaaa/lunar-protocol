@@ -1,0 +1,68 @@
+syntax = "proto3";
+package lunarclient.websocket.heartbeat.v1;
+
+import "lunarclient/common/v1/modpack.proto";
+import "lunarclient/common/v1/version.proto";
+import "lunarclient/common/v1/location.proto";
+
+message OnlineCounts {
+    int32 launcher = 1;
+    int32 game = 2;
+}
+
+message RunningInstanceLoader {
+    string loader = 1;
+    string loader_version = 2;
+    bool loader_version_recommended = 3;
+}
+
+message RunningInstance {
+    string launch_id = 1;
+    lunarclient.common.v1.MinecraftVersion minecraft_version = 2;
+    string module = 3;
+    lunarclient.common.v1.PlayerModpack modpack = 4;
+    lunarclient.common.v1.Location location = 5;
+    lunarclient.websocket.heartbeat.v1.RunningInstanceLoader loader = 6;
+}
+
+message RendererPosition {
+  enum DisplayType {
+    DISPLAY_TYPE_UNSPECIFIED = 0;
+    DISPLAY_TYPE_NATIVE = 1;
+    DISPLAY_TYPE_OSR = 2;
+  }
+    int32 position_x = 1;
+    int32 position_y = 2;
+    int32 width = 3;
+    int32 height = 4;
+    int32 display_id = 5;
+    bool primary_display = 6;
+    int32 display_width = 7;
+    int32 display_height = 8;
+    lunarclient.websocket.heartbeat.v1.RendererPosition.DisplayType display_type = 9;
+}
+
+message OpenRenderer {
+  enum ContentType {
+    CONTENT_TYPE_UNSPECIFIED = 0;
+    CONTENT_TYPE_MAIN = 1;
+    CONTENT_TYPE_MISSION_CONTROL = 2;
+    CONTENT_TYPE_CHAT = 3;
+    CONTENT_TYPE_FRIENDS = 4;
+    CONTENT_TYPE_SATELLITE = 5;
+    CONTENT_TYPE_EMBEDDED_BROWSER = 6;
+    CONTENT_TYPE_UPDATER = 7;
+    CONTENT_TYPE_VISUALISE_RESOLUTION = 8;
+    CONTENT_TYPE_CHECKOUT = 9;
+  }
+    string id = 1;
+    string route = 2;
+    string title = 3;
+    bool focused = 4;
+    bool visible = 5;
+    bool fullscreened = 6;
+    bool minimized = 7;
+    lunarclient.websocket.heartbeat.v1.RendererPosition position = 8;
+    lunarclient.websocket.heartbeat.v1.OpenRenderer.ContentType content_type = 9;
+}
+

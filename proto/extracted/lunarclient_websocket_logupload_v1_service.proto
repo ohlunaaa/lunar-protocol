@@ -1,0 +1,40 @@
+syntax = "proto3";
+package lunarclient.websocket.logupload.v1;
+
+import "lunarclient/websocket/protocol/v1/common.proto";
+
+message StartLogUploadRequest {
+    repeated lunarclient.websocket.logupload.v1.StartLogUploadRequest.File files = 1;
+    string sentry_crash_id = 2;
+    string solution_id = 3;
+  message File {
+      string name = 1;
+  }
+}
+
+message StartLogUploadResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_NOT_ALLOWED = 2;
+  }
+    repeated lunarclient.websocket.logupload.v1.StartLogUploadResponse.File files = 1;
+    string upload_id = 2;
+    lunarclient.websocket.logupload.v1.StartLogUploadResponse.Status status = 3;
+  message File {
+      string name = 1;
+      string upload_url = 2;
+  }
+}
+
+message CompleteLogUploadRequest {
+    string upload_id = 1;
+}
+
+message CompleteLogUploadResponse {
+}
+
+service LogUploadService {
+  rpc StartLogUpload(lunarclient.websocket.logupload.v1.StartLogUploadRequest) returns (lunarclient.websocket.logupload.v1.StartLogUploadResponse);
+  rpc CompleteLogUpload(lunarclient.websocket.logupload.v1.CompleteLogUploadRequest) returns (lunarclient.websocket.logupload.v1.CompleteLogUploadResponse);
+}

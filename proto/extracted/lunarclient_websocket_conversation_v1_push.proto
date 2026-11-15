@@ -1,0 +1,111 @@
+syntax = "proto3";
+package lunarclient.websocket.conversation.v1;
+
+import "google/protobuf/timestamp.proto";
+import "lunarclient/common/v1/uuid.proto";
+import "lunarclient/websocket/conversation/v1/common.proto";
+
+message ConversationMessagePush {
+  oneof 
+_updated {
+  }
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.websocket.conversation.v1.ConversationMessage message = 2;
+    bool updated = 3;
+}
+
+message ConversationPreSendActionPush {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.websocket.conversation.v1.PreSendAction action = 2;
+    lunarclient.websocket.conversation.v1.ConversationSender sender = 3;
+}
+
+message ConversationOwnerUpdatePush {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.common.v1.UuidAndUsername invoker = 2;
+    lunarclient.common.v1.Uuid previous_owner_uuid = 3;
+    lunarclient.common.v1.Uuid owner_uuid = 4;
+}
+
+message ConversationAddParticipantsPush {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.common.v1.UuidAndUsername invoker = 2;
+    repeated lunarclient.websocket.conversation.v1.ConversationParticipant participants = 3;
+}
+
+message ConversationRemoveParticipantPush {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.common.v1.UuidAndUsername invoker = 2;
+    lunarclient.common.v1.UuidAndUsername participant = 3;
+}
+
+message ConversationUpdateNamePush {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.common.v1.UuidAndUsername invoker = 2;
+    string name = 3;
+}
+
+message ConversationUpdateIconPush {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.common.v1.UuidAndUsername invoker = 2;
+    string image_url = 3;
+}
+
+message ConversationAddPinnedMessagePush {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.common.v1.UuidAndUsername invoker = 2;
+    lunarclient.common.v1.Uuid message_id = 3;
+}
+
+message ConversationRemovePinnedMessagePush {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.common.v1.UuidAndUsername invoker = 2;
+    lunarclient.common.v1.Uuid message_id = 3;
+}
+
+message ConversationUpdateInvitePolicyPush {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.websocket.conversation.v1.InvitePolicy policy = 2;
+}
+
+message ConversationUpdateNamePolicyPush {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.websocket.conversation.v1.NamePolicy policy = 2;
+}
+
+message ConversationUpdateIconPolicyPush {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.websocket.conversation.v1.IconPolicy policy = 2;
+}
+
+message ConversationUpdateMessagePinningPolicyPush {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.websocket.conversation.v1.MessagePinningPolicy policy = 2;
+}
+
+message ConversationAddedPush {
+    lunarclient.websocket.conversation.v1.Conversation conversation = 1;
+    lunarclient.common.v1.UuidAndUsername sender = 2;
+    google.protobuf.Timestamp added_at = 3;
+}
+
+message ConversationRemovedPush {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+}
+
+message ConversationRemoveMessagePush {
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.common.v1.Uuid id = 2;
+}
+
+message ConversationMessageHistoryDeletedPush {
+  oneof 
+_sender_uuid {
+  }
+    lunarclient.websocket.conversation.v1.ConversationReference conversation_reference = 1;
+    lunarclient.common.v1.Uuid sender_uuid = 2;
+}
+
+message RefreshConversationsPush {
+}
+

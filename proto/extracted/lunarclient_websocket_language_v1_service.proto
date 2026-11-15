@@ -1,0 +1,16 @@
+syntax = "proto3";
+package lunarclient.websocket.language.v1;
+
+import "lunarclient/websocket/language/v1/common.proto";
+import "lunarclient/websocket/protocol/v1/common.proto";
+
+message UpdateLanguageRequest {
+    lunarclient.websocket.language.v1.Language new_language = 1;
+}
+
+message UpdateLanguageResponse {
+}
+
+service LanguageService {
+  rpc UpdateLanguage(lunarclient.websocket.language.v1.UpdateLanguageRequest) returns (lunarclient.websocket.language.v1.UpdateLanguageResponse);
+}

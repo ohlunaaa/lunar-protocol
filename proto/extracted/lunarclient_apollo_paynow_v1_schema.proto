@@ -1,0 +1,7 @@
+syntax = "proto3";
+package lunarclient.apollo.paynow.v1;
+
+message OpenPayNowEmbeddedCheckoutMessage {
+    string checkout_token = 1;
+}
+

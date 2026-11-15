@@ -1,0 +1,70 @@
+syntax = "proto3";
+package lunarclient.apollo.stopwatch.v1;
+
+import "google/protobuf/duration.proto";
+import "lunarclient/apollo/common/v1/color.proto";
+import "lunarclient/apollo/hud/v1/position.proto";
+
+message AddStopwatchMessage {
+    string id = 1;
+    string name = 2;
+    bool reset_on_start = 3;
+    bool prevent_modification = 4;
+    bool hide_when_stopped = 5;
+    string display_format = 6;
+    lunarclient.apollo.common.v1.Color text_color = 7;
+    lunarclient.apollo.hud.v1.HudPosition hud_position = 8;
+}
+
+message RemoveStopwatchMessage {
+    string id = 1;
+}
+
+message StartStopwatchMessage {
+    string id = 1;
+}
+
+message StopStopwatchMessage {
+    string id = 1;
+}
+
+message ResetStopwatchMessage {
+    string id = 1;
+}
+
+message ResetStopwatchesMessage {
+}
+
+message AddTimerMessage {
+    string id = 1;
+    string name = 2;
+    google.protobuf.Duration duration = 3;
+    bool loop = 4;
+    bool prevent_modification = 5;
+    bool in_game_notification = 6;
+    bool hide_when_stopped = 7;
+    string display_format = 8;
+    string title_text_adventure_json_lines = 9;
+    lunarclient.apollo.common.v1.Color text_color = 10;
+    lunarclient.apollo.hud.v1.HudPosition hud_position = 11;
+}
+
+message RemoveTimerMessage {
+    string id = 1;
+}
+
+message StartTimerMessage {
+    string id = 1;
+}
+
+message StopTimerMessage {
+    string id = 1;
+}
+
+message ResetTimerMessage {
+    string id = 1;
+}
+
+message ResetTimersMessage {
+}
+

@@ -1,0 +1,13 @@
+syntax = "proto3";
+package lunarclient.apollo.packetenrichment.v1;
+
+import "lunarclient/apollo/packetenrichment/v1/packet.proto";
+import "lunarclient/apollo/packetenrichment/v1/player.proto";
+
+message PlayerAttackMessage {
+    lunarclient.apollo.packetenrichment.v1.PacketInfo packet_info = 1;
+    lunarclient.apollo.packetenrichment.v1.PlayerInfo target_info = 2;
+    lunarclient.apollo.packetenrichment.v1.PlayerInfo attacker_info = 3;
+    double distance = 4;
+}
+

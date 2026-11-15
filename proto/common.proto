@@ -1,0 +1,13 @@
+syntax = "proto3";
+package lunarclient.common.v1;
+
+// UUID as two unsigned 64-bit integers (high/low bits)
+message Uuid {
+  fixed64 high = 1;
+  fixed64 low  = 2;
+}
+
+// Color as packed ARGB int32 (not 4 separate floats)
+message Color {
+  int32 color = 1;
+}

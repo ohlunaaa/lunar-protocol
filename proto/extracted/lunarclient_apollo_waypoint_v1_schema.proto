@@ -1,0 +1,45 @@
+syntax = "proto3";
+package lunarclient.apollo.waypoint.v1;
+
+import "lunarclient/apollo/common/v1/color.proto";
+import "lunarclient/apollo/common/v1/location.proto";
+
+message DisplayWaypointMessage {
+    string name = 1;
+    lunarclient.apollo.common.v1.BlockLocation location = 2;
+    lunarclient.apollo.common.v1.Color color = 3;
+    bool prevent_removal = 4;
+    bool hidden = 5;
+    bool show_beam = 6;
+    bool highlight_block = 7;
+    float highlight_block_line_width = 8;
+    lunarclient.apollo.waypoint.v1.WaypointTextStyle style = 9;
+}
+
+message ShowWaypointMessage {
+    string name = 1;
+}
+
+message HideWaypointMessage {
+    string name = 1;
+}
+
+message RemoveWaypointMessage {
+    string name = 1;
+}
+
+message ResetWaypointsMessage {
+}
+
+message WaypointTextStyle {
+    bool show_text = 1;
+    bool only_show_text_when_looking_near = 2;
+    bool show_icons = 3;
+    float text_icon_scale = 4;
+    float label_scale = 5;
+    float box_padding = 6;
+    bool box_borders = 7;
+    bool text_shadow = 8;
+    bool show_distance = 9;
+}
+

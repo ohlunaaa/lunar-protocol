@@ -1,0 +1,12 @@
+syntax = "proto3";
+package lunarclient.websocket.server.v1;
+
+import "lunarclient/common/v1/modpack.proto";
+import "lunarclient/common/v1/version.proto";
+
+message ServerRecommendations {
+    lunarclient.common.v1.PlayerModpack modpack = 1;
+    repeated string ip_addresses = 2;
+    repeated lunarclient.common.v1.MinecraftVersion versions = 3;
+}
+

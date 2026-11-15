@@ -1,0 +1,22 @@
+syntax = "proto3";
+package lunarclient.apollo.hologram.v1;
+
+import "lunarclient/apollo/common/v1/component.proto";
+import "lunarclient/apollo/common/v1/location.proto";
+
+message DisplayHologramMessage {
+    string id = 1;
+    lunarclient.apollo.common.v1.Location location = 2;
+    bool show_through_walls = 4;
+    bool show_shadow = 5;
+    bool show_background = 6;
+    repeated string adventure_json_lines = 7;
+}
+
+message RemoveHologramMessage {
+    string id = 1;
+}
+
+message ResetHologramsMessage {
+}
+

@@ -1,0 +1,11 @@
+syntax = "proto3";
+package lunarclient.websocket.skyblock.v1;
+
+import "lunarclient/common/v1/uuid.proto";
+import "lunarclient/websocket/skyblock/v1/common.proto";
+
+message DungeonUpdatePush {
+    lunarclient.common.v1.Uuid sender_uuid = 1;
+    lunarclient.websocket.skyblock.v1.DungeonUpdate update = 2;
+}
+
