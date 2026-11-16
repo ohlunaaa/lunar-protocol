@@ -41,9 +41,14 @@ Game (client)                          Launcher (server)
     │ ◄───────────────────────────────────── │
 ```
 
-## Handshake (first frame after connect)
+## Handshake (during WebSocket upgrade)
 
-`lunarclient.gameipc.handshake.v1.Handshake`:
+`lunarclient.gameipc.handshake.v1.Handshake` — **sent as the
+`lc-handshake` WebSocket subprotocol header** (Base64 of the protobuf),
+NOT as a first frame (corrected from launcher-side analysis; the
+decompiled game client passes
+`Map.of("lc-handshake", base64(handshake.toByteArray()))` to the
+WebSocketClient constructor):
 
 | Field | # | Type | Meaning |
 |---|---|---|---|
@@ -51,9 +56,10 @@ Game (client)                          Launcher (server)
 | `process_id` | 2 | `string` | Game process PID |
 | `installation_id` | 3 | `string` | Same device ID as the WS handshake |
 
-After the handshake the launcher binds the connection to the
-`launch_id` and flushes pushes that were queued while the game was
-starting.
+The game connects with a 3,000 ms connect timeout and port `28190`
+hardcoded (`client.util` config class). After the handshake the
+launcher binds the connection to the `launch_id` and flushes pushes
+that were queued while the game was starting.
 
 ## Envelopes
 

@@ -13,6 +13,8 @@ This repository documents how a Minecraft session authenticates with Lunar's aut
 - [Service Catalog](./docs/SERVICE_CATALOG.md)
 - [Launcher Analysis (app.asar)](./docs/LAUNCHER.md)
 - [GameIPC (launcher <-> game)](./docs/GAMEIPC.md)
+- [REST & External APIs](./docs/REST_API.md)
+- [Client Internals (decompiled)](./docs/CLIENT_INTERNALS.md)
 - [Jar Analysis (full reverse engineering)](./docs/JAR_ANALYSIS.md)
 - [Per-Service Docs (auto-generated)](./docs/services/index.md) — 41 services
 - [Protobuf Schemas](./proto) — manual reconstruction
@@ -51,6 +53,8 @@ Minecraft session
 | Authenticator | `wss://authenticator.lunarclientprod.com/game` | Binary WebSocket + protobuf |
 | Game WebSocket | `wss://websocket.lunarclientprod.com/game` | Binary WebSocket + protobuf RPC |
 | Launcher WebSocket | `wss://websocket.lunarclientprod.com/launcher-v3` | Binary WebSocket + protobuf RPC |
+| Launcher REST | `https://api.lunarclientprod.com/launcher` | HTTPS + JSON |
+| Badlion Messenger | `wss://owlmessenger.badlion.net` | socket.io + protobuf |
 | GameIPC (local) | `ws://127.0.0.1:28190` (+1 scan) | WebSocket + protobuf RPC |
 | Mojang Session | `https://sessionserver.mojang.com/session/minecraft/join` | HTTPS + JSON |
 
